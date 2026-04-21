@@ -1,0 +1,40 @@
+# Ignorar WordPress Core
+wp-tiweb/wp-admin/
+wp-tiweb/wp-includes/
+wp-tiweb/*.php
+wp-tiweb/wp-config.php
+!wp-tiweb/wp-config-example.php
+
+# Ignorar Conteúdo de Terceiros e Pesado
+wp-tiweb/wp-content/plugins/
+wp-tiweb/wp-content/themes/
+wp-tiweb/wp-content/uploads/
+wp-tiweb/wp-content/upgrade/
+wp-tiweb/wp-content/cache/
+
+# Ignorar Dados do Banco
+db_data/
+database-dump/
+
+# Manter o Docker e o Angular
+!docker-compose.yml
+!.gitignore
+!frontend-angular/
+
+# Ignorar Traduções (O WP baixa isso automaticamente)
+wp-tiweb/wp-content/languages/
+
+# Ignorar injeções da Hospedagem e WAF
+wp-tiweb/wp-content/jetpack-waf/
+wp-tiweb/wp-content/mu-plugins/
+
+# Ignorar binários, logs e lixos de cPanel
+wp-tiweb/wp-cli.phar
+wp-tiweb/error_log
+wp-tiweb/.ftpquota
+wp-tiweb/.htaccess.phpupgrader*
+wp-tiweb/*.txt
+wp-tiweb/*.html
+
+#ignorar arquivos de configuração de ambiente
+COMANDOS_UTEIS.md
