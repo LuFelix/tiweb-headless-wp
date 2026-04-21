@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  db_tiweb:
+    image: mysql:8.0
+    container_name: db_tiweb
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: site_antigo_db
+      MYSQL_USER: user_tiweb
+      MYSQL_PASSWORD: password_tiweb
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./database-dump:/docker-entrypoint-initdb.d
+
+  site_tiweb:
+    image: wordpress:latest # Já vem com Apache e as extensões PHP perfeitas pro WP
+    container_name: site_tiweb
+    restart: unless-stopped
+    depends_on:
+      - db_tiweb
+    environment:
+      WORDPRESS_DB_HOST: db_tiweb:3306
+      WORDPRESS_DB_USER: user_tiweb
+      WORDPRESS_DB_PASSWORD: password_tiweb
+      WORDPRESS_DB_NAME: site_antigo_db
+    ports:
+      - "8080:80"
+    volumes:
+      # Mapeia sua pasta legacy local para o container
+      - ./wp-tiweb:/var/www/html
+
+  # frontend_angular:
+  #   image: node:20
+  #   container_name: frontend_novo
+  #   working_dir: /app
+  #   ports:
+  #     - "4200:4200"
+  #   volumes:
+  #     - ./frontend-angular:/app
+  #   command: npm start
+
+volumes:
+  db_data:
