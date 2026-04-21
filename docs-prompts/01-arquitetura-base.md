@@ -32,3 +32,12 @@
   - Integra `@abacritt/angularx-social-login`.
   - Converte o token do Google no JWT do WordPress (`/jwt-auth/v1/token`).
   - Guarda o JWT no `localStorage`.
+
+  ## 7. Estrutura de Diretórios (Padrão MAS)
+A estrutura de pastas deve seguir rigorosamente o padrão abaixo:
+- `app/core/`: Serviços globais, interceptors e configurações base.
+- `app/features/`: Módulos de funcionalidade (auth, users, admin, etc).
+- `app/layouts/`: Componentes de estrutura (header, side-nav, main-layout).
+- `app/pages/`: Componentes de página.
+  - `pages/landing-page/`: Contém o componente principal e subpastas para seções (about, contact, hero, etc).
+- `app/shared/`: Componentes, pipes e modelos reutilizáveis.
