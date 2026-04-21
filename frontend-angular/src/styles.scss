@@ -1,1 +1,30 @@
-/* You can add global styles to this file, and also import other style files */
+/* Tailwind CSS Directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global Styles - Dracula Theme */
+@layer base {
+  body {
+    @apply bg-primary text-primary min-h-screen font-sans antialiased;
+  }
+
+  html.dark body {
+    @apply bg-primary text-primary;
+  }
+}
+
+/* Custom Component Classes */
+@layer components {
+  .card {
+    @apply bg-secondary rounded-lg shadow-lg p-6 border border-dracula-current/20;
+  }
+
+  .btn-primary {
+    @apply bg-accent hover:bg-accent/90 text-white font-medium py-2 px-4 rounded-md transition-all duration-200 cursor-pointer;
+  }
+
+  .btn-secondary {
+    @apply bg-highlight hover:bg-highlight/90 text-dracula-background font-medium py-2 px-4 rounded-md transition-all duration-200 cursor-pointer;
+  }
+}
