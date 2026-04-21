@@ -18,11 +18,11 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/landing-page/register/register.component').then(m => m.RegisterComponent)
       },
       
-      {
-        path: '',
-        redirectTo: 'login',
-        pathMatch: 'full'
-      }
+      // {
+      //   path: '',
+      //   redirectTo: 'login',
+      //   pathMatch: 'full'
+      // }
     ]
   },
   {

@@ -37,7 +37,9 @@ export class LandingPageComponent implements OnInit {
     ).subscribe((event: any) => {
       const url = event.urlAfterRedirects;
       // Se a URL contém login ou register, mostramos o card. Se for a raiz, mostramos o Hero.
-      this.showManualLogin.set(url.includes('login') || url.includes('register'));
+      // const isAuthPath = url.includes('/login') || url.includes('/register');
+      // this.showManualLogin.set(isAuthPath);
+      this.showManualLogin.set(url.includes('/login') || url.includes('/register'));
     });
 
     // 3. Login Social

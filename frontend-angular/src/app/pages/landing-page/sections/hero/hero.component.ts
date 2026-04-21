@@ -1,10 +1,11 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [GoogleSigninButtonModule],
+  imports: [GoogleSigninButtonModule, RouterModule],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.scss'
 })

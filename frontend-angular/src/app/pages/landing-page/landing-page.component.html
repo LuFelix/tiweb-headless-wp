@@ -1,6 +1,6 @@
 <main class="min-h-screen">
   @if (!showManualLogin()) {
-    <app-hero (toggleLoginForm)="showManualLogin.set(true)" />
+    <app-hero (toggleLoginForm)="onEnterManual()" />
   } @else {
     <section class="min-h-screen flex items-center justify-center bg-dracula-background px-4">
       <div class="text-center">
