@@ -1,0 +1,226 @@
+// ✅ Tema Dracula Oficial
+$dracula-bg: #282a36;
+$dracula-current-line: #44475a;
+$dracula-foreground: #f8f8f2;
+$dracula-comment: #6272a4;
+$dracula-cyan: #8be9fd;
+$dracula-green: #50fa7b;
+$dracula-orange: #ffb86c;
+$dracula-pink: #ff79c6;
+$dracula-purple: #bd93f9;
+$dracula-red: #ff5555;
+$dracula-yellow: #f1fa8c;
+
+.dashboard-container {
+  min-height: 100vh;
+  background-color: $dracula-bg;
+  color: $dracula-foreground;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.dashboard-header {
+  background-color: rgba(68, 71, 90, 0.3);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(189, 147, 249, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  .header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, $dracula-pink, $dracula-purple);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 0;
+    }
+
+    .logout-btn {
+      background: transparent;
+      border: 1px solid $dracula-comment;
+      color: $dracula-foreground;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s ease;
+
+      &:hover {
+        border-color: $dracula-pink;
+        background-color: rgba(255, 121, 198, 0.1);
+        color: $dracula-pink;
+      }
+    }
+  }
+}
+
+.dashboard-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+
+  .welcome-card {
+    background: linear-gradient(135deg, rgba(189, 147, 249, 0.15), rgba(255, 121, 198, 0.1));
+    border: 1px solid rgba(189, 147, 249, 0.2);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+
+    .card-icon {
+      color: $dracula-purple;
+      width: 64px;
+      height: 64px;
+      flex-shrink: 0;
+    }
+
+    h2 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.5rem;
+      color: $dracula-foreground;
+    }
+
+    .user-email {
+      color: $dracula-comment;
+      margin: 0 0 0.75rem 0;
+      font-size: 0.9rem;
+    }
+
+    .welcome-text {
+      color: $dracula-foreground;
+      opacity: 0.8;
+      margin: 0;
+      line-height: 1.6;
+    }
+  }
+
+  .grid-layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .card {
+    background-color: $dracula-current-line;
+    border-radius: 16px;
+    padding: 1.5rem;
+    border: 1px solid rgba(189, 147, 249, 0.1);
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      border-color: rgba(189, 147, 249, 0.3);
+    }
+
+    .card-icon {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+    }
+
+    .upload-icon {
+      color: $dracula-green;
+    }
+
+    .stats-icon {
+      color: $dracula-cyan;
+    }
+
+    .settings-icon {
+      color: $dracula-orange;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+
+      h3 {
+        margin: 0;
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: $dracula-foreground;
+      }
+    }
+
+    .card-body {
+      p {
+        color: $dracula-comment;
+        line-height: 1.6;
+        margin: 0 0 1rem 0;
+      }
+
+      .placeholder-badge {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        background-color: rgba(241, 250, 140, 0.15);
+        color: $dracula-yellow;
+        margin-bottom: 0.75rem;
+      }
+
+      .progress-simulator {
+        height: 4px;
+        background-color: $dracula-bg;
+        border-radius: 2px;
+        overflow: hidden;
+
+        .progress-bar {
+          height: 100%;
+          width: 35%;
+          background: linear-gradient(90deg, $dracula-purple, $dracula-pink);
+          animation: progress-pulse 2s ease-in-out infinite;
+        }
+      }
+    }
+  }
+}
+
+@keyframes progress-pulse {
+  0%, 100% {
+    opacity: 0.6;
+    width: 35%;
+  }
+  50% {
+    opacity: 1;
+    width: 65%;
+  }
+}
+
+// Responsividade
+@media (max-width: 768px) {
+  .dashboard-content {
+    padding: 1rem;
+  }
+
+  .header-content {
+    padding: 1rem !important;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start !important;
+  }
+
+  .grid-layout {
+    grid-template-columns: 1fr !important;
+  }
+
+  .welcome-card {
+    flex-direction: column;
+    text-align: center;
+  }
+}
