@@ -28,3 +28,5 @@
     @apply bg-highlight hover:bg-highlight/90 text-dracula-background font-medium py-2 px-4 rounded-md transition-all duration-200 cursor-pointer;
   }
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

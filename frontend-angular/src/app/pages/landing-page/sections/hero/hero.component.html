@@ -14,6 +14,13 @@
       <div class="inline-block">
         <asl-google-signin-button type='standard' size='large'></asl-google-signin-button>
       </div>
+
+      <button 
+        class="manual-login-toggle mt-6 text-sm text-gray-400 hover:text-dracula-purple transition-colors cursor-pointer bg-transparent border-none"
+        (click)="toggleManualLogin()"
+      >
+        ➕ Entrar com Usuário e Senha
+      </button>
     </div>
   </div>
 </section>

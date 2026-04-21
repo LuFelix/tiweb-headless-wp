@@ -1,3 +1,18 @@
 <main class="min-h-screen">
-  <app-hero />
+  @if (!showManualLogin()) {
+    <app-hero (toggleLoginForm)="showManualLogin.set(true)" />
+  } @else {
+    <section class="min-h-screen flex items-center justify-center bg-dracula-background px-4">
+      <div class="text-center">
+        <app-login />
+        
+        <button 
+          class="back-button mt-8 text-sm text-gray-400 hover:text-dracula-purple transition-colors cursor-pointer bg-transparent border-none"
+          (click)="showManualLogin.set(false)"
+        >
+          ← Voltar para Login com Google
+        </button>
+      </div>
+    </section>
+  }
 </main>

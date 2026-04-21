@@ -5,6 +5,7 @@ import { GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx
 
 import { routes } from './app.routes';
 import { environment } from '../environments/environment';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -24,6 +25,6 @@ export const appConfig: ApplicationConfig = {
           console.error('Social Auth Error:', err);
         }
       } as SocialAuthServiceConfig,
-    }
+    }, provideAnimationsAsync()
   ]
 };

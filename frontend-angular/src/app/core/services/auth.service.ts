@@ -94,6 +94,28 @@ export class AuthService {
     this.router.navigate(['/']);
   }
 
+  public loginWithCredentials(username: string, password: string) {
+    return this.http.post(`${environment.apiUrl}/jwt-auth/v1/token`, {
+      username,
+      password
+    }).pipe(
+      tap((response: any) => {
+        console.log('✅ Autenticação por credenciais concluída com sucesso');
+        this.saveToken(response.token);
+        
+        setTimeout(() => {
+          console.log('🧭 Navegando para o Dashboard...');
+          this.router.navigate(['/dashboard']);
+        }, 0);
+      }),
+      catchError(err => {
+        console.error('❌ Falha na autenticação:', err);
+        this.logout();
+        throw err;
+      })
+    );
+  }
+
   private decodeJwt(token: string): UserData | null {
     try {
       return JSON.parse(atob(token.split('.')[1]));
