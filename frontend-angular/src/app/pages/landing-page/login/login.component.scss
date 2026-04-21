@@ -3,22 +3,33 @@
    ========================================= */
 .login-container {
   min-height: 100vh;
-  background-color: #282a36; /* Fundo principal Dracula */
+  background-color: #282a36; 
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 24px;
 }
 
-.login-card {
+.login-wrapper {
   width: 100%;
-  max-width: 600px;
-  background-color: #44475a; /* Fundo do Card Dracula */
-  padding: 32px 24px;
-  border-radius: 12px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  min-width: 440px;
+  max-width: 800px; /* Mexa AQUI! Se colocar 800px, ele vai pra 800px! */
 }
 
+mat-card.login-card {
+  width: 100% !important;
+  max-width: 800px !important; /* Teste com 600px primeiro, 800px fica gigante */
+  min-width: 320px;
+  background-color: #44475a;
+  padding: 32px;
+  border-radius: 12px;
+  
+  /* Garantir que o card se comporte bem em telas menores */
+  @media (max-width: 600px) {
+    max-width: 95vw !important;
+    padding: 24px;
+  }
+}
 /* =========================================
    TEXTOS MAIS CLAROS E LEGÍVEIS
    ========================================= */
