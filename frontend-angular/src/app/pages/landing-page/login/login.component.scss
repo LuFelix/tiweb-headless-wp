@@ -93,13 +93,7 @@ mat-card.login-card {
     display: none;
   }
   
-  /* Borda inteira, sem "rasgo" */
-  .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,
-  .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,
-  .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {
-    border-color: rgba(248, 248, 242, 0.2) !important; 
-  }
-  
+   
   /* Borda Roxa ao clicar no campo */
   &.mat-focused {
     .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,
