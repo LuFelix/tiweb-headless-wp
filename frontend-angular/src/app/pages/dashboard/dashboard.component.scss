@@ -45,19 +45,19 @@ $dracula-yellow: #f1fa8c;
     }
 
     .logout-btn {
-      background: transparent;
-      border: 1px solid $dracula-comment;
-      color: $dracula-foreground;
+      background: rgba(255, 85, 85, 0.1);
+      border: 1px solid $dracula-red;
+      color: $dracula-red;
       padding: 0.75rem 1.5rem;
       border-radius: 8px;
       cursor: pointer;
-      font-weight: 500;
+      font-weight: 600;
       transition: all 0.2s ease;
 
       &:hover {
-        border-color: $dracula-pink;
-        background-color: rgba(255, 121, 198, 0.1);
-        color: $dracula-pink;
+        background-color: $dracula-red;
+        color: $dracula-bg;
+        box-shadow: 0 0 20px rgba(255, 85, 85, 0.4);
       }
     }
   }

@@ -11,7 +11,7 @@ const apiUrl = process.env.API_URL || 'http://localhost:8080/wp-json';
 const envConfigFileProduction = `export const environment = {
   production: true,
   googleClientId: '${googleClientId}',
-  apiUrl: '${apiUrl.replace('http://localhost:8080', '')}'
+  apiUrl: '${apiUrl}'
 };
 `;
 

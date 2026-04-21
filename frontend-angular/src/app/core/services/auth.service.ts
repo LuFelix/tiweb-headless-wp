@@ -34,6 +34,7 @@ export class AuthService {
     private socialAuthService: SocialAuthService,
     private router: Router
   ) {
+    console.log('🔌 API URL Resolvida:', environment.apiUrl);
     this.initializeGoogleAuthListener();
   }
 
@@ -52,11 +53,19 @@ export class AuthService {
       provider: 'google'
     }).pipe(
       tap((response: any) => {
+        console.log('✅ Autenticação WP concluída com sucesso');
         this.saveToken(response.token);
-        this.router.navigate(['/dashboard']);
+        
+        // ✅ Garantir que o Angular detectou a mudança antes de navegar
+        setTimeout(() => {
+          console.log('🧭 Navegando para o Dashboard...');
+          this.router.navigate(['/dashboard']).then(success => {
+            console.log(success ? '✅ Navegação concluída' : '❌ Falha na navegação');
+          });
+        }, 0);
       }),
       catchError(err => {
-        console.error('WP Authentication failed:', err);
+        console.error('❌ WP Authentication failed:', err);
         this.logout();
         return of(null);
       })
