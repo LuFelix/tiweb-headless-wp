@@ -48,7 +48,7 @@ export class AuthService {
   }
 
   private authenticateWithWordpress(idToken: string): void {
-    // 🚩 Chama o nosso endpoint customizado!
+    // 🚩 Chama o endpoint customizado!
     this.http.post(`${environment.apiUrl}/tiweb/v1/google-login`, {
    // this.http.post(`${environment.apiUrl}/jwt-auth/v1/token`, {
       token: idToken,
