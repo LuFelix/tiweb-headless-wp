@@ -1,39 +1,65 @@
 <div class="login-wrapper">
   <mat-card class="login-card">
     <mat-card-header>
-      <mat-card-title>Criar Conta</mat-card-title>
-      <mat-card-subtitle>Envie um código de validação para seu e-mail</mat-card-subtitle>
+     @if (step() === 'form') {
+        <div class="mat-mdc-card-title">Criar Conta</div>
+        <div class="mat-mdc-card-subtitle">Envie um código de validação para seu e-mail</div>
+      } @else {
+        <div class="mat-mdc-card-title">Validar E-mail</div>
+        <div class="mat-mdc-card-subtitle">Digite o código de 6 dígitos enviado para {{ userEmail() }}</div>
+      }
     </mat-card-header>
 
     <mat-card-content>
-      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="login-form">
-        
-        <div class="form-group">
-          <label class="custom-label">E-mail</label>
-          <mat-form-field appearance="outline" class="w-full">
-            <input matInput formControlName="email" type="email" placeholder="exemplo@email.com">
-          </mat-form-field>
-        </div>
+      @if (step() === 'form') {
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="login-form">
+          
+          <div class="form-group">
+            <label class="custom-label">E-mail</label>
+            <mat-form-field appearance="outline" class="w-full">
+              <input matInput formControlName="email" type="email" placeholder="exemplo@email.com">
+            </mat-form-field>
+          </div>
 
-        <div class="form-group">
-          <label class="custom-label">Senha</label>
-          <mat-form-field appearance="outline" class="w-full">
-            <input matInput formControlName="password" type="password" placeholder="••••••••">
-          </mat-form-field>
-        </div>
+          <div class="form-group">
+            <label class="custom-label">Senha</label>
+            <mat-form-field appearance="outline" class="w-full">
+              <input matInput formControlName="password" type="password" placeholder="••••••••">
+            </mat-form-field>
+          </div>
 
-        <div class="form-group">
-          <label class="custom-label">Confirmar Senha</label>
-          <mat-form-field appearance="outline" class="w-full">
-            <input matInput formControlName="confirmPassword" type="password" placeholder="••••••••">
-          </mat-form-field>
-        </div>
+          <div class="form-group">
+            <label class="custom-label">Confirmar Senha</label>
+            <mat-form-field appearance="outline" class="w-full">
+              <input matInput formControlName="confirmPassword" type="password" placeholder="••••••••">
+            </mat-form-field>
+          </div>
 
-        <button mat-raised-button color="primary" type="submit" class="login-button w-full" [disabled]="isLoading || registerForm.invalid">
-          @if (isLoading) { <mat-spinner diameter="20"></mat-spinner> } 
-          @else { ENVIAR CÓDIGO DE VALIDAÇÃO }
-        </button>
-      </form>
+          <button mat-raised-button color="primary" type="submit" class="login-button w-full" [disabled]="isLoading() || registerForm.invalid">
+            @if (isLoading()) { <mat-spinner diameter="20"></mat-spinner> } 
+            @else { ENVIAR CÓDIGO DE VALIDAÇÃO }
+          </button>
+        </form>
+      } @else {
+        <form [formGroup]="codeForm" (ngSubmit)="onVerifyCode()" class="login-form">
+          
+          <div class="form-group">
+            <label class="custom-label">Código de Verificação</label>
+            <mat-form-field appearance="outline" class="w-full code-field">
+              <input matInput formControlName="code" type="text" inputmode="numeric" maxlength="6" placeholder="000000">
+            </mat-form-field>
+          </div>
+
+          <button mat-raised-button color="primary" type="submit" class="login-button w-full" [disabled]="isLoading() || codeForm.invalid">
+            @if (isLoading()) { <mat-spinner diameter="20"></mat-spinner> } 
+            @else { CONFIRMAR CÓDIGO }
+          </button>
+
+          <button type="button" class="back-button" (click)="goBackToForm()">
+            Editar e-mail
+          </button>
+        </form>
+      }
     </mat-card-content>
 
     <div class="login-footer">
