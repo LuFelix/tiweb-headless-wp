@@ -1,0 +1,44 @@
+<header class="global-header">
+  <div class="header-container">
+    <div class="header-left">
+      <span class="logo">SPED <strong>FÁCIL</strong></span>
+    </div>
+
+    <div class="header-right">
+      @if (!isAuthenticated()) {
+        <div class="auth-buttons">
+          <a mat-button routerLink="/login" class="header-btn">Login</a>
+          <a mat-raised-button color="primary" routerLink="/register" class="header-btn primary">Cadastre-se</a>
+        </div>
+      } @else {
+        <div class="user-actions">
+          <button mat-icon-button class="icon-btn">
+            <mat-icon>notifications_none</mat-icon>
+          </button>
+
+          <button mat-icon-button [matMenuTriggerFor]="userMenu" class="avatar-btn">
+            <div class="avatar">
+              @if (user()?.picture) {
+                <img [src]="user()?.picture" alt="Avatar">
+              } @else {
+                {{ user()?.name?.charAt(0) || 'U' }}
+              }
+            </div>
+          </button>
+
+          <mat-menu #userMenu="matMenu" xPosition="before">
+            <button mat-menu-item routerLink="/profile">
+              <mat-icon>person</mat-icon>
+              <span>Meu Perfil</span>
+            </button>
+            <mat-divider></mat-divider>
+            <button mat-menu-item (click)="logout()">
+              <mat-icon>logout</mat-icon>
+              <span>Sair</span>
+            </button>
+          </mat-menu>
+        </div>
+      }
+    </div>
+  </div>
+</header>
