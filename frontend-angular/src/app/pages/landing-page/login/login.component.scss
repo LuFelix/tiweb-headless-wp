@@ -1,0 +1,172 @@
+/* =========================================
+   LAYOUT CENTRALIZADO LIMPO
+   ========================================= */
+.login-container {
+  min-height: 100vh;
+  background-color: #282a36; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.login-wrapper {
+  width: 100%;
+  min-width: 440px;
+  max-width: 800px; /* Mexa AQUI! Se colocar 800px, ele vai pra 800px! */
+}
+
+mat-card.login-card {
+  width: 100% !important;
+  max-width: 800px !important; /* Teste com 600px primeiro, 800px fica gigante */
+  min-width: 320px;
+  background-color: #44475a;
+  padding: 32px;
+  border-radius: 12px;
+  
+  /* Garantir que o card se comporte bem em telas menores */
+  @media (max-width: 600px) {
+    max-width: 95vw !important;
+    padding: 24px;
+  }
+}
+/* =========================================
+   TEXTOS MAIS CLAROS E LEGÍVEIS
+   ========================================= */
+::ng-deep .mat-mdc-card-header {
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+::ng-deep .mat-mdc-card-title {
+  color: #f8f8f2 !important;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+::ng-deep .mat-mdc-card-subtitle {
+  /* Substituí o azul apagado por branco com leve opacidade */
+  color: rgba(248, 248, 242, 0.8) !important; 
+  font-size: 15px;
+  margin-top: 8px !important;
+}
+
+/* =========================================
+   FORMULÁRIO E A CORREÇÃO DOS INPUTS
+   ========================================= */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  /* Retira o espaço vazio nativo do mat-form-field */
+  margin-bottom: -16px; 
+}
+
+/* Essa é a label nova, bonita, alinhada e fora da confusão do Material */
+.custom-label {
+  color: #f8f8f2;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  margin-left: 4px;
+}
+
+.w-full {
+  width: 100%;
+}
+
+/* Domando a borda da caixa de texto */
+::ng-deep .mat-mdc-form-field {
+  .mat-mdc-text-field-wrapper {
+    background-color: #282a36 !important;
+    border-radius: 6px;
+  }
+  
+  /* Esconde o espaço do hint/erro para não empurrar os botões */
+  .mat-mdc-form-field-subscript-wrapper {
+    display: none;
+  }
+  
+   
+  /* Borda Roxa ao clicar no campo */
+  &.mat-focused {
+    .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,
+    .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,
+    .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {
+      border-color: #bd93f9 !important; 
+      border-width: 2px !important;
+    }
+  }
+  
+  input {
+    color: #f8f8f2 !important;
+  }
+  
+  input::placeholder {
+    color: rgba(248, 248, 242, 0.3) !important;
+  }
+}
+
+.login-button {
+  background-color: #bd93f9 !important;
+  color: #282a36 !important;
+  font-weight: 700;
+  height: 52px;
+  font-size: 16px;
+  letter-spacing: 1px;
+  margin-top: 16px;
+  border-radius: 6px;
+  
+  &:hover:not(:disabled) {
+    background-color: #caa9fa !important;
+  }
+  
+  &:disabled {
+    background-color: rgba(189, 147, 249, 0.4) !important;
+    color: rgba(40, 42, 54, 0.6) !important;
+  }
+}
+
+.error-message {
+  background-color: rgba(255, 85, 85, 0.15);
+  border: 1px solid #ff5555;
+  color: #ff5555;
+  padding: 12px;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+/* =========================================
+   FOOTER (Link de Cadastro)
+   ========================================= */
+.login-footer {
+  margin-top: 24px;
+  text-align: center;
+  border-top: 1px solid rgba(248, 248, 242, 0.1);
+  padding-top: 24px;
+}
+
+.register-link {
+  color: rgba(248, 248, 242, 0.7); /* Branco apagado */
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  
+  span {
+    color: #bd93f9; /* Roxo para destacar a ação */
+    font-weight: 700;
+  }
+  
+  &:hover span {
+    text-decoration: underline;
+  }
+}
