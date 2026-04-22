@@ -48,7 +48,7 @@ export class AuthService {
   }
 
   private authenticateWithWordpress(idToken: string): void {
-    // 🚩 Chama o nosso endpoint customizado!
+    // 🚩 Chama o endpoint customizado!
     this.http.post(`${environment.apiUrl}/tiweb/v1/google-login`, {
    // this.http.post(`${environment.apiUrl}/jwt-auth/v1/token`, {
       token: idToken,
@@ -116,6 +116,36 @@ export class AuthService {
         throw err;
       })
     );
+  }
+
+  public requestRegistration(email: string, password: string) {
+    return this.http.post(`${environment.apiUrl}/tiweb/v1/request-registration`, { email, password })
+      .pipe(
+        tap(() => console.log('✅ Código de validação enviado para:', email)),
+        catchError(err => {
+          console.error('❌ Falha ao solicitar registro:', err);
+          throw err;
+        })
+      );
+  }
+
+  public verifyRegistration(email: string, code: string) {
+    return this.http.post(`${environment.apiUrl}/tiweb/v1/verify-registration`, { email, code })
+      .pipe(
+        tap((response: any) => {
+          console.log('✅ Registro confirmado com sucesso');
+          this.saveToken(response.token);
+          
+          setTimeout(() => {
+            console.log('🧭 Navegando para o Dashboard...');
+            this.router.navigate(['/dashboard']);
+          }, 0);
+        }),
+        catchError(err => {
+          console.error('❌ Falha na verificação do código:', err);
+          throw err;
+        })
+      );
   }
 
   private decodeJwt(token: string): UserData | null {
