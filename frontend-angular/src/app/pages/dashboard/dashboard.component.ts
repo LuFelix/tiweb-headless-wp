@@ -16,7 +16,7 @@ export default class DashboardComponent {
   public readonly user = this.authService.user;
   public readonly isAuthenticated = this.authService.isAuthenticated;
 
-  logout(): void {
-    this.authService.logout();
+  downloadApp(): void {
+    console.log('Iniciando download seguro via WP REST API...');
   }
 }
