@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   db_tiweb:
     image: mysql:8.0
@@ -33,15 +31,18 @@ services:
       # Mapeia sua pasta legacy local para o container
       - ./wp-tiweb:/var/www/html
 
-  # frontend_angular:
-  #   image: node:20
-  #   container_name: frontend_novo
-  #   working_dir: /app
-  #   ports:
-  #     - "4200:4200"
-  #   volumes:
-  #     - ./frontend-angular:/app
-  #   command: npm start
-
+  frontend:
+    image: node:20
+    container_name: frontend_tiweb
+    working_dir: /app
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./frontend-angular:/app
+    # --- COMANDO DEFINITIVO (Deixar comentado por enquanto o front não sobe) ---
+    command: sh -c "npm install -g @angular/cli && npm install && ng serve --host 0.0.0.0"
+    #
+    # --- MODO SUPORTE DE VIDA (Ativo agora para segurar o container) ---
+    # command: tail -f /dev/null
 volumes:
   db_data:
