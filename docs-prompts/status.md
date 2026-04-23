@@ -20,10 +20,11 @@
 - [x] Implementar a lógica de Logout real (limpar localStorage, redirecionar e invalidar estado).
 
 ## 📥 Fase 3: Integração Headless & Downloads (PRÓXIMOS PASSOS)
-- [ ] Setup do `Apollo Client` ou `fetch` nativo no Angular para consumir GraphQL.
-- [ ] Criar arquivo de Queries GraphQL (`src/app/core/graphql/queries.ts`) para buscar os "Materiais SPED".
-- [ ] Refatorar o "Card de Download" no `DashboardComponent` para listar os arquivos vindos do WPGraphQL dinamicamente.
-- [ ] Implementar o método de download seguro (`downloadApp()`) consumindo o link recebido na query e enviando o Token de Autorização via Headers HTTP.
+- [x] Setup do `Apollo Client` ou `fetch` nativo no Angular para consumir GraphQL.
+- [x] Criar arquivo de Queries GraphQL (`src/app/core/graphql/queries.ts`) para buscar os "Materiais SPED".
+- [x] Refatorar o "Card de Download" no `DashboardComponent` para listar os arquivos vindos do WPGraphQL dinamicamente.
+- [x] Implementar o método de download seguro (`downloadApp()`) consumindo o link recebido na query e enviando o Token de Autorização via Headers HTTP.
+- [x] Implementação do **Facade Pattern**: Criação do `DownloadService` no Core para desacoplar a lógica de DOM/Rede da UI.
 
 ## 🎨 Fase 4: O Salão de Entrada (Landing Page)
 - [ ] Criação do `<app-hero-section>` (Destaque do Utilitário).

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../../core/services/auth.service';
 import { GraphqlService } from '../../core/services/graphql.service';
+import { DownloadService } from '../../core/services/download.service'; 
 
 @Component({
   selector: 'app-dashboard',
@@ -17,6 +18,7 @@ export default class DashboardComponent {
   private readonly graphqlService = inject(GraphqlService);
   private readonly http = inject(HttpClient);
   private readonly cdr = inject(ChangeDetectorRef);
+  private readonly downloadService = inject(DownloadService);
   public readonly user = this.authService.user;
   public readonly isAuthenticated = this.authService.isAuthenticated;
 
@@ -43,32 +45,8 @@ export default class DashboardComponent {
       console.warn('⚠️ Nenhuma URL encontrada para download.');
       return;
     }
-
-    console.log('📥 URL Original do GraphQL:', url);
-
-    // 🔄 TRADUTOR DE AMBIENTE LOCAL
-    // Se a URL vier com o nome interno do Docker, trocamos para o localhost exposto
-    let publicUrl = url;
-    if (publicUrl.includes('site_tiweb')) {
-      // Remove a porta 80 se vier, e troca pelo localhost:8080
-      publicUrl = publicUrl.replace('http://site_tiweb:80', 'http://localhost:8080');
-      publicUrl = publicUrl.replace('http://site_tiweb', 'http://localhost:8080');
-    }
-
-    console.log('🔗 URL Pública (Navegador):', publicUrl);
-
-    // Cria o link invisível
-    const link = document.createElement('a');
-    link.href = publicUrl; 
-    link.target = '_blank';
     
-    // Sugestão de nome limpo
-    const extension = publicUrl.split('.').pop()?.split(/#|\?/)[0] || 'zip';
-    link.download = `${materialTitle}.${extension}`;
-
-    // Dispara o download
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    // O Componente delega a complexidade!
+    this.downloadService.downloadFile(url, materialTitle);
   }
 }
