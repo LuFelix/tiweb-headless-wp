@@ -30,6 +30,7 @@ services:
     volumes:
       # Mapeia sua pasta legacy local para o container
       - ./wp-tiweb:/var/www/html
+      - ./config/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
 
   frontend:
     image: node:20

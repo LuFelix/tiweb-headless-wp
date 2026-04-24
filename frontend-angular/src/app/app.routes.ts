@@ -10,19 +10,15 @@ export const routes: Routes = [
     children: [
       {
         path: 'login',
-        loadComponent: () => import('./pages/landing-page/login/login.component').then(m => m.LoginComponent)
+        loadComponent: () => import('./pages/landing-page/login/login.component')
+        .then(m => m.LoginComponent)
       },
       
       {
         path: 'register',
-        loadComponent: () => import('./pages/landing-page/register/register.component').then(m => m.RegisterComponent)
+        loadComponent: () => import('./pages/landing-page/register/register.component')
+        .then(m => m.RegisterComponent)
       },
-      
-      // {
-      //   path: '',
-      //   redirectTo: 'login',
-      //   pathMatch: 'full'
-      // }
     ]
   },
   {

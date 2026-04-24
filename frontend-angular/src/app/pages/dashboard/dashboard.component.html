@@ -57,23 +57,60 @@
         </div>
       </div>
 
-      <div class="card placeholder-card">
-        <div class="card-header">
-          <div class="card-icon download-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-              <polyline points="7 10 12 15 17 10"></polyline>
-              <line x1="12" y1="15" x2="12" y2="3"></line>
-            </svg>
+      @if (isLoadingMateriais()) {
+        <div class="card placeholder-card skeleton">
+          <div class="card-header">
+            <div class="card-icon download-icon skeleton-box"></div>
+            <h3 class="skeleton-text"></h3>
           </div>
-          <h3>Download do SPED Fácil</h3>
+          <div class="card-body">
+            <div class="skeleton-badge"></div>
+            <p class="skeleton-text"></p>
+            <div class="skeleton-button"></div>
+          </div>
         </div>
-        <div class="card-body">
-          <div class="placeholder-badge available-badge">Disponível</div>
-          <p>Baixe a versão mais recente do utilitário SPED Fácil.</p>
-          <button class="download-btn" (click)="downloadApp()">Baixar Arquivo</button>
-        </div>
-      </div>
+      } @else {
+        @for (material of materiais(); track material.id) {
+          <div class="card placeholder-card">
+            <div class="card-header">
+              <div class="card-icon download-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+              </div>
+              <h3>{{ material.title }}</h3>
+            </div>
+            <div class="card-body">
+              <div class="placeholder-badge available-badge">Disponível</div>
+              <p>Baixe o arquivo diretamente do painel seguro.</p>
+              <button class="download-btn" (click)="downloadApp(material.dadosDoMaterial?.arquivoParaDownload?.node?.mediaItemUrl, material.title)">
+                Baixar Arquivo
+              </button>
+            </div>
+          </div>
+        }
+
+        @if (materiais().length === 0) {
+          <div class="card placeholder-card">
+            <div class="card-header">
+              <div class="card-icon download-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+              </div>
+              <h3>Downloads</h3>
+            </div>
+            <div class="card-body">
+              <div class="placeholder-badge">Em Breve</div>
+              <p>Nenhum material disponível no momento.</p>
+            </div>
+          </div>
+        }
+      }
     </div>
   </main>
 </div>
