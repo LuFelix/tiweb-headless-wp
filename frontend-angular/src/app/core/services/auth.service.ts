@@ -1,4 +1,4 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, NgZone } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { tap, catchError, of } from 'rxjs';
@@ -14,6 +14,7 @@ export interface UserData {
 }
 
 @Injectable({ providedIn: 'root' })
+
 export class AuthService {
 
   private readonly STORAGE_KEY = 'tiweb_auth_token';
@@ -32,7 +33,8 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private socialAuthService: SocialAuthService,
-    private router: Router
+    private router: Router,
+    private ngZone: NgZone
   ) {
     console.log('🔌 API URL Resolvida:', environment.apiUrl);
     this.initializeGoogleAuthListener();
@@ -59,12 +61,19 @@ export class AuthService {
         this.saveToken(response.token);
         
         // ✅ Garantir que o Angular detectou a mudança antes de navegar
-        setTimeout(() => {
-          console.log('🧭 Navegando para o Dashboard...');
+      //   setTimeout(() => {
+      //     console.log('🧭 Navegando para o Dashboard...');
+      //     this.router.navigate(['/dashboard']).then(success => {
+      //       console.log(success ? '✅ Navegação concluída' : '❌ Falha na navegação');
+      //     });
+      //   }, 0);
+      // }),
+      this.ngZone.run(() => {
+          console.log('🧭 Navegando para o Dashboard dentro do NgZone...');
           this.router.navigate(['/dashboard']).then(success => {
-            console.log(success ? '✅ Navegação concluída' : '❌ Falha na navegação');
+            console.log(success ? '✅ Tela pintada com sucesso!' : '❌ Guard bloqueou!');
           });
-        }, 0);
+        });
       }),
       catchError(err => {
         console.error('❌ WP Authentication failed:', err);
@@ -74,14 +83,49 @@ export class AuthService {
     ).subscribe();
   }
 
-  private saveToken(token: string): void {
+ private saveToken(token: string | null | undefined): void {
+    if (!token) {
+      console.warn('⚠️ Tentativa de salvar um token inválido ignorada.');
+      return;
+    }
+
+    try {
+      // Tenta decodificar para garantir que não é um token lixo
+      const decoded = this.decodeJwt(token);
+      if (decoded && decoded.exp) {
+        // Verifica se a data de expiração já passou
+        const isExpired = Date.now() >= decoded.exp * 1000;
+        if (isExpired) {
+          console.warn('⚠️ O token recebido já está expirado.');
+          return;
+        }
+      }
+    } catch (e) {
+        console.error('❌ Erro ao validar formato do JWT ao salvar.');
+        return;
+    }
+
     localStorage.setItem(this.STORAGE_KEY, token);
     this._token.set(token);
     this._isAuthenticated.set(true);
   }
 
   private hasValidToken(): boolean {
-    return !!localStorage.getItem(this.STORAGE_KEY);
+    const token = this.getToken();
+    if (!token) return false;
+
+    // Não basta ter o token, ele não pode estar expirado
+    const decoded = this.decodeJwt(token);
+    if (!decoded || !decoded.exp) return false;
+
+    const isExpired = Date.now() >= decoded.exp * 1000;
+    if (isExpired) {
+      // Se tiver expirado, já faz a faxina
+      localStorage.removeItem(this.STORAGE_KEY);
+      return false;
+    }
+
+    return true;
   }
 
   public getToken(): string | null {
@@ -105,10 +149,17 @@ export class AuthService {
         console.log('✅ Autenticação por credenciais concluída com sucesso');
         this.saveToken(response.token);
         
-        setTimeout(() => {
-          console.log('🧭 Navegando para o Dashboard...');
-          this.router.navigate(['/dashboard']);
-        }, 0);
+      //   setTimeout(() => {
+      //     console.log('🧭 Navegando para o Dashboard...');
+      //     this.router.navigate(['/dashboard']);
+      //   }, 0);
+      // }),
+      this.ngZone.run(() => {
+          console.log('🧭 Navegando para o Dashboard dentro do NgZone...');
+          this.router.navigate(['/dashboard']).then(success => {
+            console.log(success ? '✅ Tela pintada com sucesso!' : '❌ Guard bloqueou!');
+          });
+        });
       }),
       catchError(err => {
         console.error('❌ Falha na autenticação:', err);
@@ -136,10 +187,17 @@ export class AuthService {
           console.log('✅ Registro confirmado com sucesso');
           this.saveToken(response.token);
           
-          setTimeout(() => {
-            console.log('🧭 Navegando para o Dashboard...');
-            this.router.navigate(['/dashboard']);
-          }, 0);
+        //   setTimeout(() => {
+        //     console.log('🧭 Navegando para o Dashboard...');
+        //     this.router.navigate(['/dashboard']);
+        //   }, 0);
+        // }),
+          this.ngZone.run(() => {
+            console.log('🧭 Navegando para o Dashboard dentro do NgZone...');
+            this.router.navigate(['/dashboard']).then(success => {
+              console.log(success ? '✅ Tela pintada com sucesso!' : '❌ Guard bloqueou!');
+            });
+          });
         }),
         catchError(err => {
           console.error('❌ Falha na verificação do código:', err);

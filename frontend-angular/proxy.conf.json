@@ -3,5 +3,15 @@
     "target": "http://site_tiweb:80",
     "secure": false,
     "changeOrigin": true
+  },
+  "/graphql": {
+    "target": "http://site_tiweb:80",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/wp-content": {
+    "target": "http://site_tiweb:80",
+    "secure": false,
+    "changeOrigin": true
   }
 }

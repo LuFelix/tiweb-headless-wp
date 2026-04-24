@@ -56,6 +56,8 @@ wp-tiweb/wp-content/mu-plugins/
 
 # ⭐ EXCEÇÃO CRÍTICA: NOSSA REGRA DE NEGÓCIO (PLUGIN E FRONT)
 !wp-tiweb/wp-content/plugins/tiweb-google-auth/
+!wp-tiweb/wp-content/plugins/tiweb-content-manager/
+!wp-tiweb/wp-content/mu-plugins/tiweb-security.php
 !frontend-angular/
 !docker-compose.yml
 !.gitignore
