@@ -1,62 +1,66 @@
-<div class="login-container">
+<section class="min-h-screen flex items-center justify-center bg-dracula-background px-4 pt-16">
   
-  <div class="login-wrapper">
-
-  <mat-card class="login-card">
-    
-    <mat-card-header>
-      <mat-card-title>Entrar no Sistema</mat-card-title>
-      <mat-card-subtitle>Utilize suas credenciais de acesso</mat-card-subtitle>
-    </mat-card-header>
-
-    <mat-card-content>
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
-        
-        @if (loginError) {
-          <div class="error-message">
-            ⚠️ Usuário ou senha inválidos. Tente novamente.
-          </div>
-        }
-
-        <div class="form-group">
-          <label class="custom-label">Usuário / Email</label>
-          <mat-form-field appearance="outline" class="w-full">
-            <input matInput formControlName="username" type="text" autocomplete="username" placeholder="seu@email.com">
-          </mat-form-field>
-        </div>
-
-        <div class="form-group">
-          <label class="custom-label">Senha</label>
-          <mat-form-field appearance="outline" class="w-full">
-            <input matInput formControlName="password" type="password" autocomplete="current-password" placeholder="••••••••">
-          </mat-form-field>
-        </div>
-
-        <button 
-          mat-raised-button 
-          color="primary" 
-          type="submit" 
-          class="login-button w-full"
-          [disabled]="isLoading || loginForm.invalid"
-        >
-          @if (isLoading) {
-            <mat-spinner diameter="20"></mat-spinner>
-          } @else {
-            ENTRAR
-          }
-        </button>
-
-      </form>
-    </mat-card-content>
-    
-
-    <div class="login-footer">
-      <a [routerLink]="['/register']" class="register-link">
-        Não tem conta? <span>Cadastre-se aqui</span>
-      </a>
+  <div class="w-full max-w-[500px] bg-dracula-current-line p-8 rounded-xl shadow-2xl">
+    <div class="text-center mb-8">
+      <h2 class="text-3xl font-bold text-white mb-2">Acesse sua conta</h2>
+      <p class="text-gray-400">Entre para acessar seus downloads e licenças.</p>
     </div>
 
-  </mat-card>
+    <div class="flex justify-center mb-6">
+      <asl-google-signin-button type='standard' size='large'></asl-google-signin-button>
+    </div>
 
+    <div class="flex items-center my-6">
+      <div class="flex-grow border-t border-gray-600"></div>
+      <span class="px-4 text-gray-400 text-sm">ou use seu e-mail</span>
+      <div class="flex-grow border-t border-gray-600"></div>
+    </div>
+
+    <form (ngSubmit)="onSubmit()" [formGroup]="loginForm" class="flex flex-col gap-4">
+      
+      <div class="form-group">
+        <label for="email" class="block text-sm font-medium text-gray-300 mb-1">E-mail</label>
+        <input 
+          type="email" 
+          id="email" 
+          formControlName="email"
+          class="w-full px-4 py-3 bg-dracula-background border border-gray-600 rounded-lg text-white focus:outline-none focus:border-dracula-purple focus:ring-1 focus:ring-dracula-purple transition-colors"
+          placeholder="seu@email.com"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="password" class="block text-sm font-medium text-gray-300 mb-1">Senha</label>
+        <input 
+          type="password" 
+          id="password" 
+          formControlName="password"
+          class="w-full px-4 py-3 bg-dracula-background border border-gray-600 rounded-lg text-white focus:outline-none focus:border-dracula-purple focus:ring-1 focus:ring-dracula-purple transition-colors"
+          placeholder="••••••••"
+        >
+      </div>
+
+      <div class="flex justify-between items-center text-sm">
+        <a href="#" class="text-gray-400 hover:text-dracula-purple transition-colors">Esqueceu a senha?</a>
+      </div>
+
+      <button 
+        type="submit" 
+        [disabled]="loginForm.invalid || isLoading()"
+        class="mt-4 w-full bg-dracula-purple hover:bg-purple-600 disabled:bg-gray-600 disabled:cursor-not-allowed text-white font-bold py-3 px-4 rounded-lg transition-colors flex justify-center items-center gap-2">
+        @if (isLoading()) {
+          <span class="animate-spin text-xl">↻</span> Entrando...
+        } @else {
+          Entrar
+        }
+      </button>
+    </form>
+
+    <p class="text-center text-gray-400 text-sm mt-8">
+      Ainda não tem conta? 
+      <a routerLink="/register" class="text-dracula-purple hover:text-purple-400 transition-colors font-semibold cursor-pointer">
+        Cadastre-se grátis
+      </a>
+    </p>
   </div>
-</div>
+</section>

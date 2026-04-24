@@ -8,18 +8,11 @@
       Simplifique a entrega do SPED Fiscal. Baixe o gerador de SPED para validação em poucos cliques.
     </p>
 
-    <div class="flex flex-col items-center gap-4">
-      <p class="text-gray-400 text-sm mb-2">Entre com sua conta Google para continuar:</p>
-      
-      <div class="inline-block">
-        <asl-google-signin-button type='standard' size='large'></asl-google-signin-button>
-      </div>
-
+    <div class="flex justify-center">
       <button 
-        class="manual-login-toggle mt-6 text-sm text-gray-400 hover:text-dracula-purple transition-colors cursor-pointer bg-transparent border-none"
-        (click)="toggleManualLogin()"
-      >
-        ➕ Entrar com Usuário e Senha
+        routerLink="/register" 
+        class="bg-dracula-purple hover:bg-purple-600 text-white font-bold py-4 px-10 rounded-lg transition-colors text-lg shadow-lg hover:shadow-purple-500/50 cursor-pointer">
+        Criar Conta e Baixar
       </button>
     </div>
   </div>

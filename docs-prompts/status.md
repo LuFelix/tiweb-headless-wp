@@ -11,7 +11,7 @@
 - [x] Integração do Token do Google com o WordPress (JWT).
 - [x] Configuração do Proxy Reverso Docker para contornar problemas de CORS.
 
-## 🏛️ Fase 2: Estrutura da Área Logada (EM ANDAMENTO)
+## 🏛️ Fase 2: Estrutura da Área Logada (CONCLUÍDO)
 - [x] Refatoração do `DashboardComponent`: Extração do cabeçalho.
 - [x] Criação do `GlobalHeaderComponent` (Menu superior onipresente, dinâmico via Signals).
 - [x] Limpeza de CSS órfão e ajuste de responsividade no painel.
@@ -19,14 +19,14 @@
 - [x] Criação do `AuthGuard` no Angular para proteger a rota `/dashboard` de usuários sem JWT.
 - [x] Implementar a lógica de Logout real (limpar localStorage, redirecionar e invalidar estado).
 
-## 📥 Fase 3: Integração Headless & Downloads (PRÓXIMOS PASSOS)
+## 📥 Fase 3: Integração Headless & Downloads (CONCLUÍDO)
 - [x] Setup do `Apollo Client` ou `fetch` nativo no Angular para consumir GraphQL.
 - [x] Criar arquivo de Queries GraphQL (`src/app/core/graphql/queries.ts`) para buscar os "Materiais SPED".
 - [x] Refatorar o "Card de Download" no `DashboardComponent` para listar os arquivos vindos do WPGraphQL dinamicamente.
 - [x] Implementar o método de download seguro (`downloadApp()`) consumindo o link recebido na query e enviando o Token de Autorização via Headers HTTP.
 - [x] Implementação do **Facade Pattern**: Criação do `DownloadService` no Core para desacoplar a lógica de DOM/Rede da UI.
 
-## 🎨 Fase 4: O Salão de Entrada (Landing Page)
+## 🎨 Fase 4: O Salão de Entrada (Landing Page)(PRÓXIMOS PASSOS)
 - [ ] Criação do `<app-hero-section>` (Destaque do Utilitário).
 - [ ] Criação do `<app-about-us-section>` (História Trazom / 1990).
 - [ ] Criação do `<app-services-section>`.
