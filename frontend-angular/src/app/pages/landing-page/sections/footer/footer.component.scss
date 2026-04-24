@@ -1,0 +1,16 @@
+// Footer Component - Tema Dracula
+// Arquitetura: SCSS para estrutura + Tailwind para layout
+
+footer {
+  a {
+    @apply no-underline;
+
+    &:hover {
+      @apply transition-all duration-200 ease-in-out;
+    }
+  }
+
+  svg {
+    @apply transition-all duration-200;
+  }
+}
