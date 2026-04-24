@@ -53,6 +53,7 @@ wp-tiweb/wp-content/cache/
 wp-tiweb/wp-content/languages/
 wp-tiweb/wp-content/jetpack-waf/
 wp-tiweb/wp-content/mu-plugins/
+wp-tiweb/wp-content/endurance-page-cache/
 
 # ⭐ EXCEÇÃO CRÍTICA: NOSSA REGRA DE NEGÓCIO (PLUGIN E FRONT)
 !wp-tiweb/wp-content/plugins/tiweb-google-auth/
