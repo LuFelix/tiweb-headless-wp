@@ -1,0 +1,51 @@
+<section class="services-section py-20 px-4 bg-dracula-surface/20">
+  <div class="container mx-auto max-w-6xl">
+    
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4 text-dracula-foreground">
+        Nossas <span class="text-dracula-cyan">Soluções</span>
+      </h2>
+      <p class="text-lg text-gray-400 max-w-2xl mx-auto">
+        Todo o ecossistema construído para otimizar o seu trabalho contábil
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      @for (service of services; track service.id) {
+        <div class="service-card bg-dracula-surface rounded-xl p-8 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-dracula-purple/10">
+          
+          <div class="icon-wrapper w-14 h-14 mb-6 rounded-lg bg-dracula-purple/10 flex items-center justify-center">
+            @switch (service.icon) {
+              @case ('automation') {
+                <svg class="w-7 h-7 text-dracula-purple" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                </svg>
+              }
+              @case ('validation') {
+                <svg class="w-7 h-7 text-dracula-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+              }
+              @case ('consulting') {
+                <svg class="w-7 h-7 text-dracula-cyan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+              }
+            }
+          </div>
+
+          <h3 class="text-xl font-semibold mb-3 text-dracula-foreground">
+            {{ service.title }}
+          </h3>
+
+          <p class="text-gray-400 leading-relaxed">
+            {{ service.description }}
+          </p>
+
+        </div>
+      }
+    </div>
+
+  </div>
+</section>
