@@ -63,3 +63,6 @@ wp-tiweb/wp-content/endurance-page-cache/
 !docker-compose.yml
 !.gitignore
 COMANDOS_UTEIS.md
+
+# --- OUTROS ---
+dev/
