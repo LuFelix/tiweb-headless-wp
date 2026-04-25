@@ -1,0 +1,33 @@
+.about-section {
+  .image-placeholder {
+    position: relative;
+    overflow: hidden;
+    
+    /* A MÁGICA DO BLEND MODE:
+      1. Primeira camada: Um gradiente que vai do Fundo Dracula para o Roxo Dracula (com transparência).
+      2. Segunda camada: A imagem corporativa puxada direto do Unsplash.
+    */
+    background-image: 
+      linear-gradient(135deg, rgba(40, 42, 54, 0.9) 0%, rgba(189, 147, 249, 0.4) 100%),
+      url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&auto=format&fit=crop');
+    
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: multiply; /* Isso faz a imagem absorver as cores do gradiente */
+    
+    /* Mantendo a sua borda brilhante e tecnológica intacta */
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 0.75rem;
+      padding: 2px;
+      background: linear-gradient(135deg, #bd93f9, #8be9fd);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+  }
+}

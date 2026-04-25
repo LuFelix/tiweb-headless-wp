@@ -1,5 +1,9 @@
 import { Component, inject, OnInit, DestroyRef, signal } from '@angular/core';
 import { HeroComponent } from './sections/hero/hero.component';
+import AboutUsComponent from './sections/about-us/about-us.component';
+import ServicesComponent from './sections/services/services.component';
+import ContactComponent from './sections/contact/contact.component';
+import FooterComponent from './sections/footer/footer.component';
 import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { Router, RouterModule, NavigationEnd } from '@angular/router'; // Adicionado NavigationEnd
 import { AuthService } from '../../core/services/auth.service';
@@ -11,7 +15,7 @@ import { filter } from 'rxjs/operators'; // Adicionado filter
   selector: 'app-landing-page',
   standalone: true,
   // 💡 REMOVI o LoginComponent daqui. O roteador vai injetar ele via <router-outlet>
-  imports: [CommonModule, HeroComponent, RouterModule], 
+  imports: [CommonModule, HeroComponent, AboutUsComponent, ServicesComponent, ContactComponent, FooterComponent, RouterModule], 
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.scss'
 })
