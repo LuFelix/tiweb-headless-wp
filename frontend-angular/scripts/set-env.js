@@ -1,8 +1,9 @@
 const { writeFileSync } = require('fs');
+const path = require('path');
 require('dotenv').config();
 
-const targetPathProduction = './src/environments/environment.ts';
-const targetPathDevelopment = './src/environments/environment.development.ts';
+const targetPathProduction = path.resolve(__dirname, '../src/environments/environment.ts');
+const targetPathDevelopment = path.resolve(__dirname, '../src/environments/environment.development.ts');
 
 // Valores padrão caso não existam no .env
 const googleClientId = process.env.GOOGLE_CLIENT_ID || '1018169699705-vgvkpisbmjgrvudab5mrdnsvgid7bjk7.apps.googleusercontent.com';
