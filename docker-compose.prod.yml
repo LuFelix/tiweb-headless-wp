@@ -32,6 +32,7 @@ services:
       WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
       WORDPRESS_DB_NAME: ${MYSQL_DATABASE}
       WORDPRESS_JWT_AUTH_SECRET_KEY: ${JWT_AUTH_SECRET_KEY}
+      FRONTEND_URL: ${FRONTEND_URL:-https://spedfacil.tiweb.app.br}
     volumes:
       - ./wp-tiweb:/var/www/html
       - ./config/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini:ro

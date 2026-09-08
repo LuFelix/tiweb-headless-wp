@@ -13,12 +13,13 @@ export class DownloadService {
       return;
     }
 
-    // 1. Tradução de Rota (Docker para Localhost - À prova de balas)
+    // 1. Tradução de Rota (Docker para Domínio Público da API)
     let finalUrl = originalUrl;
     
-    // Se a URL contém o host interno do Docker, traduzimos na força bruta
+    // Se a URL contém o host interno do Docker, traduzimos usando a URL pública da API
     if (finalUrl.includes('site_tiweb')) {
-      finalUrl = finalUrl.replace(/http:\/\/site_tiweb(:\d+)?/gi, 'http://localhost:8080');
+      const baseUrl = environment.apiUrl.replace(/\/wp-json\/?$/, '');
+      finalUrl = finalUrl.replace(/http:\/\/site_tiweb(:\d+)?/gi, baseUrl);
     }
 
     console.log('📥 URL do Iframe traduzida:', finalUrl);

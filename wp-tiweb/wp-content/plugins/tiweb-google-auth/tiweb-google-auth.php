@@ -154,7 +154,8 @@ function tiweb_process_google_login(WP_REST_Request $request) {
 add_action('admin_init', function() {
     if (defined('DOING_AJAX') && DOING_AJAX) return;
     if (!current_user_can('administrator')) {
-        wp_redirect('http://localhost:4200'); 
+        $frontend_url = getenv('FRONTEND_URL') ?: 'https://spedfacil.tiweb.app.br';
+        wp_redirect($frontend_url); 
         exit;
     }
 });
