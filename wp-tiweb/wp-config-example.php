@@ -21,21 +21,42 @@
 // ** Database settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
 
-// MODO DINÂMICO: Tenta pegar a variável do Docker. Se não existir (na HostGator), usa a string de produção.
-/** Database name */
-define( 'DB_NAME', getenv('WORDPRESS_DB_NAME') ?: 'banco_producao' );
+// a helper function to lookup "env_FILE", "env", then fallback
+if (!function_exists('getenv_docker')) {
+	function getenv_docker($env, $default) {
+		if ($fileEnv = getenv($env . '_FILE')) {
+			return rtrim(file_get_contents($fileEnv), "\r\n");
+		}
+		else if (($val = getenv($env)) !== false) {
+			return $val;
+		}
+		else {
+			return $default;
+		}
+	}
+}
+
+// ** Database settings - You can get this info from your web host ** //
+/** The name of the database for WordPress */
+define( 'DB_NAME', getenv_docker('WORDPRESS_DB_NAME', 'banco_producao') );
 /** Database username */
-define( 'DB_USER', getenv('WORDPRESS_DB_USER') ?: 'user_producao' );
+define( 'DB_USER', getenv_docker('WORDPRESS_DB_USER', 'user_producao') );
 /** Database password */
-define( 'DB_PASSWORD', getenv('WORDPRESS_DB_PASSWORD') ?: 'senha_producao' );
+define( 'DB_PASSWORD', getenv_docker('WORDPRESS_DB_PASSWORD', 'senha_producao') );
 /** Database hostname */
-define( 'DB_HOST', getenv('WORDPRESS_DB_HOST') ?: 'localhost' );
+define( 'DB_HOST', getenv_docker('WORDPRESS_DB_HOST', 'localhost') );
+
 // MODO DINÂMICO PARA URLs (Adapta sozinho para Localhost ou Produção)
 $protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https://' : 'http://';
 $current_host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'tiweb.app.br';
 
 define('WP_HOME', $protocol . $current_host);
 define('WP_SITEURL', $protocol . $current_host);
+define( 'FS_METHOD', 'direct' );
+
+/** Habilita JWT Authentication */
+define('JWT_AUTH_SECRET_KEY', getenv_docker('WORDPRESS_JWT_AUTH_SECRET_KEY', getenv('JWT_AUTH_SECRET_KEY') ?: ''));
+define('JWT_AUTH_CORS_ENABLE', true);
 
 /** Database charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8mb4' );
@@ -54,14 +75,14 @@ define( 'DB_COLLATE', '' );
  *
  * @since 2.6.0
  */
-define( 'AUTH_KEY',         'rluep2iz88je0euwgd5bcwxhjwfeumh4gbhrdmtkoj0g5phmkqmn0kpvt4mn3gpo' );
-define( 'SECURE_AUTH_KEY',  'rrls0sqs2cpiplpgvzz7w3ckg7r6u3b6eh2nvfnk7ptrxxox72bjsdoggdbtne5y' );
-define( 'LOGGED_IN_KEY',    '637dlf6dbwece1ivujfuhep0qdpxj7zz2xspjkqwqttkqj3f3nd4peopjvehftzl' );
-define( 'NONCE_KEY',        'pehrvezko7qsfo7rdxcaanvwcg3zurfzdbsqqppehxflpd2qc0zlbwanmmfr0tgo' );
-define( 'AUTH_SALT',        'yilc1fxjg29kpo5flfolcj6pbksnb7nyivxrvxt6jfr5igjjdrhq5z8idbj2utjx' );
-define( 'SECURE_AUTH_SALT', 'e7dskfz9o0a6zp6s1tjqmz5c0kpddle01cslaq1fhr4gmqtsgkqa2wydinb6s4a0' );
-define( 'LOGGED_IN_SALT',   'cxrvjmfaihbiqaxwmogp2vxkpc5mkfuhs43vqv8ozvc508b8wu4vtcptuirlqsye' );
-define( 'NONCE_SALT',       'edruzb1fmt03hkmqyqzmh6idfp4umxejgmmaacp1m9v6uracnkmxycvzx58carku' );
+define( 'AUTH_KEY',         getenv_docker('WORDPRESS_AUTH_KEY',         'put your unique phrase here') );
+define( 'SECURE_AUTH_KEY',  getenv_docker('WORDPRESS_SECURE_AUTH_KEY',  'put your unique phrase here') );
+define( 'LOGGED_IN_KEY',    getenv_docker('WORDPRESS_LOGGED_IN_KEY',    'put your unique phrase here') );
+define( 'NONCE_KEY',        getenv_docker('WORDPRESS_NONCE_KEY',        'put your unique phrase here') );
+define( 'AUTH_SALT',        getenv_docker('WORDPRESS_AUTH_SALT',        'put your unique phrase here') );
+define( 'SECURE_AUTH_SALT', getenv_docker('WORDPRESS_SECURE_AUTH_SALT', 'put your unique phrase here') );
+define( 'LOGGED_IN_SALT',   getenv_docker('WORDPRESS_LOGGED_IN_SALT',   'put your unique phrase here') );
+define( 'NONCE_SALT',       getenv_docker('WORDPRESS_NONCE_SALT',       'put your unique phrase here') );
 
 /**#@-*/
 
