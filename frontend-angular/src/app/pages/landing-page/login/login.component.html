@@ -16,6 +16,12 @@
       <div class="flex-grow border-t border-gray-600"></div>
     </div>
 
+    @if (loginError()) {
+      <div class="mb-4 p-3 bg-red-500/20 border border-red-500 rounded-lg text-red-300 text-sm text-center">
+        E-mail ou senha incorretos. Por favor, tente novamente.
+      </div>
+    }
+
     <form (ngSubmit)="onSubmit()" [formGroup]="loginForm" class="flex flex-col gap-4">
       
       <div class="form-group">
