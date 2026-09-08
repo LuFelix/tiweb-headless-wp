@@ -6,7 +6,7 @@ set -e
 echo "🚀 Iniciando deploy automático do Site TIWEB..."
 
 echo "📦 1. Puxando as atualizações do repositório..."
-git pull origin develop
+git pull origin master
 
 echo "🏗️ 2. Reconstruindo os containers (sem usar cache para evitar código velho)..."
 docker compose -f docker-compose.prod.yml build --no-cache
