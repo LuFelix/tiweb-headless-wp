@@ -1,10 +1,19 @@
 # Estágio 1: Build do Angular
 FROM node:20-alpine AS builder
 WORKDIR /app
+
+ARG GOOGLE_CLIENT_ID
+ARG API_URL
+ARG GRAPHQL_URL
+
+ENV GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+ENV API_URL=${API_URL}
+ENV GRAPHQL_URL=${GRAPHQL_URL}
+
 COPY package*.json ./
 RUN npm install --legacy-peer-deps
 COPY . .
-RUN npm run build
+RUN node scripts/set-env.js && npm run build
 
 # Estágio 2: Servidor Nginx Otimizado
 FROM nginx:alpine

@@ -42,6 +42,10 @@ services:
     build:
       context: ./frontend-angular
       dockerfile: Dockerfile.prod
+      args:
+        GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+        API_URL: ${API_URL}
+        GRAPHQL_URL: ${GRAPHQL_URL}
     image: tiweb_web_prod:latest
     container_name: tiweb_web_prod
     restart: always

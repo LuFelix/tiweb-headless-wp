@@ -5,9 +5,9 @@ const targetPathProduction = './src/environments/environment.ts';
 const targetPathDevelopment = './src/environments/environment.development.ts';
 
 // Valores padrão caso não existam no .env
-const googleClientId = process.env.GOOGLE_CLIENT_ID || 'COLE_SUA_CHAVE_AQUI';
-const apiUrl = process.env.API_URL || 'http://localhost:8080/wp-json';
-const graphqlUrl = process.env.GRAPHQL_URL || (apiUrl.endsWith('/wp-json') ? apiUrl.replace('/wp-json', '/graphql') : 'http://localhost:8080/graphql');
+const googleClientId = process.env.GOOGLE_CLIENT_ID || '1018169699705-vgvkpisbmjgrvudab5mrdnsvgid7bjk7.apps.googleusercontent.com';
+const apiUrl = process.env.API_URL || 'https://wp.tiweb.app.br/wp-json';
+const graphqlUrl = process.env.GRAPHQL_URL || (apiUrl.endsWith('/wp-json') ? apiUrl.replace('/wp-json', '/graphql') : 'https://wp.tiweb.app.br/graphql');
 
 const envConfigFileProduction = `export const environment = {
   production: true,
