@@ -150,18 +150,9 @@ function tiweb_process_google_login(WP_REST_Request $request) {
     ]);
 } // <--- FIM DA FUNÇÃO DE LOGIN! AGORA SIM!
 
-// 3. Bloqueios de Segurança (Do lado de FORA das funções)
-add_action('admin_init', function() {
-    if (defined('DOING_AJAX') && DOING_AJAX) return;
-    if (!current_user_can('administrator')) {
-        $frontend_url = getenv('FRONTEND_URL') ?: 'https://spedfacil.tiweb.app.br';
-        wp_redirect($frontend_url); 
-        exit;
-    }
-});
-
+// 3. Bloqueios de Interface
 add_action('after_setup_theme', function() {
-    if (!current_user_can('administrator')) {
+    if (!current_user_can('edit_posts')) {
         show_admin_bar(false);
     }
 });
