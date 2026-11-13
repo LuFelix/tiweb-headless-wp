@@ -23,6 +23,17 @@ describe('App Component', () => {
     expect(screen.getByRole('heading', { name: 'SPED Fácil' })).toBeInTheDocument();
   });
 
+  it('renders legal vertical section', () => {
+    render(<App />);
+    expect(screen.getByText(/Vertical Especializada \/\/ Advocacia 4.0/i)).toBeInTheDocument();
+  });
+
+  it('renders cases showcase and roi calculator', () => {
+    render(<App />);
+    expect(screen.getByText('Cases Reais & Verticais em Escala')).toBeInTheDocument();
+    expect(screen.getByText('Calculadora de Retorno (ROI Reverso)')).toBeInTheDocument();
+  });
+
   it('renders footer with copyright', () => {
     render(<App />);
     expect(screen.getByText(/TIWEB Soluções Tecnológicas/i)).toBeInTheDocument();
