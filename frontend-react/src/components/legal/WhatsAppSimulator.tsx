@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Send, CheckCheck, Bot, User, Sparkles, Scale, ShieldCheck } from 'lucide-react';
+import { Send, CheckCheck, Bot, User, Sparkles, Scale, ShieldCheck, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { getLisaWhatsAppUrl } from '../../data/contact';
 
 interface Message {
   id: string;
@@ -202,6 +203,22 @@ export const WhatsAppSimulator: React.FC = () => {
           <Send className="w-4 h-4" />
         </button>
       </form>
+
+      {/* Live WhatsApp CTA Bar */}
+      <div className="p-3 bg-[#1e1f29] border-t border-[#44475a]/70 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs">
+        <span className="text-[#f8f8f2]/70 font-mono text-[11px]">
+          Simulação interativa. Quer conversar com a IA real?
+        </span>
+        <a
+          href={getLisaWhatsAppUrl('Olá Lisa! Estou testando o simulador no portal TIWEB e gostaria de conversar com você ao vivo.')}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#50fa7b] hover:text-[#8be9fd] font-bold flex items-center gap-1 transition-colors shrink-0"
+        >
+          Conversar com a Lisa no WhatsApp
+          <ArrowRight className="w-3.5 h-3.5" />
+        </a>
+      </div>
     </div>
   );
 };

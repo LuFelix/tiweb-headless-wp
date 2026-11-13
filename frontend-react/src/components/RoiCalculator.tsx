@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Calculator, DollarSign, Clock, ArrowRight, TrendingUp } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { getLisaWhatsAppUrl } from '../data/contact';
 
 export const RoiCalculator: React.FC = () => {
   const [ticketMedio, setTicketMedio] = useState<number>(4000);
@@ -149,11 +150,13 @@ export const RoiCalculator: React.FC = () => {
             </div>
 
             <a
-              href="#contato"
+              href={getLisaWhatsAppUrl(`Olá Lisa! Simulei o ROI no portal TIWEB (Recuperação estimada de R$ ${receitaMensal.toLocaleString('pt-BR')}/mês) e gostaria de aplicar essa automação.`)}
+              target="_blank"
+              rel="noopener noreferrer"
               className="w-full py-4 px-6 rounded-xl text-sm font-bold text-[#282a36] bg-gradient-to-r from-[#bd93f9] via-[#8be9fd] to-[#50fa7b] hover:shadow-[0_0_25px_rgba(139,233,253,0.5)] active:scale-95 transition-all flex items-center justify-center gap-2"
             >
               <DollarSign className="w-4 h-4" />
-              Recuperar Essa Receita com a TIWEB
+              Recuperar Essa Receita com a Lisa no WhatsApp
               <ArrowRight className="w-4 h-4" />
             </a>
           </div>

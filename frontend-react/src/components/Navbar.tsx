@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Menu, X, Sparkles, Terminal, ChevronRight, Scale } from 'lucide-react';
+import { getLisaWhatsAppUrl } from '../data/contact';
 
 export const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -59,7 +60,9 @@ export const Navbar: React.FC = () => {
           {/* CTA Desktop */}
           <div className="hidden lg:flex items-center gap-4">
             <a
-              href="#contato"
+              href={getLisaWhatsAppUrl('Olá Lisa! Vim pelo portal da TIWEB e gostaria de falar com você.')}
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-4 py-2 rounded-lg text-sm font-semibold text-[#282a36] bg-gradient-to-r from-[#bd93f9] to-[#8be9fd] hover:shadow-[0_0_20px_rgba(139,233,253,0.4)] transition-all duration-300 flex items-center gap-2"
             >
               <Sparkles className="w-4 h-4 text-[#282a36]" />
@@ -90,7 +93,7 @@ export const Navbar: React.FC = () => {
             className="flex items-center gap-2 px-3 py-2.5 rounded-lg text-base font-medium text-[#bd93f9] bg-[#bd93f9]/10 border border-[#bd93f9]/30"
           >
             <Scale className="w-4 h-4" />
-            Vertical Advocacia (Slides & Agente IA)
+            Vertical Advocacia (Apresentação & Agente IA)
           </a>
           <a
             href="#produtos"
@@ -131,7 +134,9 @@ export const Navbar: React.FC = () => {
           </a>
           <div className="pt-2">
             <a
-              href="#contato"
+              href={getLisaWhatsAppUrl('Olá Lisa! Vim pelo portal da TIWEB no celular e gostaria de conversar.')}
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={() => setMobileMenuOpen(false)}
               className="block w-full text-center px-4 py-3 rounded-lg text-sm font-semibold text-[#282a36] bg-gradient-to-r from-[#bd93f9] to-[#8be9fd] shadow-md"
             >
