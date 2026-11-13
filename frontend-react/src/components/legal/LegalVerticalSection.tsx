@@ -38,7 +38,7 @@ export const LegalVerticalSection: React.FC = () => {
               className="px-6 py-3.5 rounded-xl text-sm font-bold text-[#282a36] bg-gradient-to-r from-[#bd93f9] to-[#8be9fd] hover:shadow-[0_0_25px_rgba(189,147,249,0.4)] active:scale-95 transition-all flex items-center gap-2"
             >
               <Presentation className="w-4 h-4" />
-              Abrir Apresentação no Celular (7 Slides)
+              Abrir Apresentação (7 Slides)
             </button>
             <a
               href="#roi"

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { LEGAL_SLIDES } from '../../data/legalPresentation';
+import { getLisaWhatsAppUrl } from '../../data/contact';
 import { X, ChevronLeft, ChevronRight, CheckCircle2, Shield, Target, AlertTriangle, Bot, Zap, Rocket, Calendar, ArrowRight } from 'lucide-react';
 
 interface LegalPresentationModalProps {
@@ -105,7 +106,7 @@ export const LegalPresentationModal: React.FC<LegalPresentationModalProps> = ({ 
             MODO APRESENTAÇÃO EXECUTIVA
           </div>
           <span className="text-xs font-mono text-[#f8f8f2]/70 font-medium">
-            Deslize na tela 👈 👉 ou use setas
+            Navegue com setas ou deslize na tela 👈 👉
           </span>
         </div>
 
@@ -200,11 +201,13 @@ export const LegalPresentationModal: React.FC<LegalPresentationModalProps> = ({ 
               </div>
               {currentSlideIndex === LEGAL_SLIDES.length - 1 && (
                 <a
-                  href="#contato"
+                  href={getLisaWhatsAppUrl('Olá Lisa! Finalizei a apresentação executiva da Vertical Jurídica da TIWEB e gostaria de agendar uma demonstração.')}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={onClose}
                   className="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-[#282a36] bg-gradient-to-r from-[#bd93f9] to-[#50fa7b] flex items-center gap-1.5 shrink-0 hover:shadow-lg"
                 >
-                  Agendar Reunião com a Lisa
+                  Agendar Demonstração com a Lisa
                   <ArrowRight className="w-4 h-4" />
                 </a>
               )}
