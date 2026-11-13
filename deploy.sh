@@ -1,20 +1,17 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
 
-# Interrompe o script imediatamente se qualquer comando falhar (Segurança)
-set -e
+echo "=== [1/4] Sincronização de Código com a Produção ==="
+git fetch origin master
+git reset --hard origin/master
 
-echo "🚀 Iniciando deploy automático do Site TIWEB..."
+echo "=== [2/4] Build da Aplicação Angular ==="
+cd frontend-angular
+NG_PERSISTENT_BUILD_CACHE=0 npm run build
+cd ..
 
-echo "📦 1. Puxando as atualizações do repositório..."
-git pull origin master
+echo "=== [3/4] Validação de Estrutura Estática ==="
+test -d frontend-angular/dist/frontend-tiweb/browser
 
-echo "🏗️ 2. Reconstruindo os containers (sem usar cache para evitar código velho)..."
-docker compose -f docker-compose.prod.yml build --no-cache
-
-echo "🔄 3. Subindo os novos containers..."
-docker compose -f docker-compose.prod.yml up -d
-
-echo "🧹 4. Limpando imagens antigas e soltas para liberar espaço no disco..."
-docker image prune -f
-
-echo "✅ Deploy do Site TIWEB concluído com sucesso!"
+echo "=== [4/4] Conclusão do Procedimento Local ==="
+echo "✓ Preparação local e artefatos de produção gerados com sucesso."
