@@ -19,7 +19,7 @@ describe('LegalVerticalSection Component', () => {
 
   it('opens and closes mobile presentation modal', async () => {
     render(<LegalVerticalSection />);
-    const openBtn = screen.getByRole('button', { name: /Abrir Apresentação no Celular \(7 Slides\)/i });
+    const openBtn = screen.getByRole('button', { name: /Abrir Apresentação \(7 Slides\)/i });
     fireEvent.click(openBtn);
 
     expect(screen.getByText('MODO APRESENTAÇÃO EXECUTIVA')).toBeInTheDocument();
@@ -41,7 +41,7 @@ describe('LegalVerticalSection Component', () => {
 
   it('advances slide on touch swipe left and returns on touch swipe right', async () => {
     render(<LegalVerticalSection />);
-    const openBtn = screen.getByRole('button', { name: /Abrir Apresentação no Celular \(7 Slides\)/i });
+    const openBtn = screen.getByRole('button', { name: /Abrir Apresentação \(7 Slides\)/i });
     fireEvent.click(openBtn);
 
     const slideContainer = screen.getByTestId('presentation-slide-container');
