@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, X, Sparkles, Terminal, ChevronRight } from 'lucide-react';
+import { Menu, X, Sparkles, Terminal, ChevronRight, Scale } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -25,15 +25,25 @@ export const Navbar: React.FC = () => {
           </a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
+          <nav className="hidden lg:flex items-center gap-7 text-sm font-medium">
             <a href="#produtos" className="text-[#f8f8f2]/80 hover:text-[#8be9fd] transition-colors">
               Ecossistema
             </a>
-            <a href="#engenharia" className="text-[#f8f8f2]/80 hover:text-[#bd93f9] transition-colors">
-              Engenharia
+            <a
+              href="#advocacia"
+              className="text-[#bd93f9] hover:text-[#f8f8f2] flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#bd93f9]/10 border border-[#bd93f9]/30 transition-all"
+            >
+              <Scale className="w-3.5 h-3.5" />
+              Vertical Advocacia
             </a>
             <a href="#cases" className="text-[#f8f8f2]/80 hover:text-[#50fa7b] transition-colors">
               Cases Reais
+            </a>
+            <a href="#roi" className="text-[#f8f8f2]/80 hover:text-[#8be9fd] transition-colors">
+              Simulador ROI
+            </a>
+            <a href="#engenharia" className="text-[#f8f8f2]/80 hover:text-[#f8f8f2] transition-colors">
+              Engenharia
             </a>
             <a
               href="https://spedfacil.tiweb.app.br"
@@ -47,18 +57,18 @@ export const Navbar: React.FC = () => {
           </nav>
 
           {/* CTA Desktop */}
-          <div className="hidden md:flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-4">
             <a
               href="#contato"
               className="px-4 py-2 rounded-lg text-sm font-semibold text-[#282a36] bg-gradient-to-r from-[#bd93f9] to-[#8be9fd] hover:shadow-[0_0_20px_rgba(139,233,253,0.4)] transition-all duration-300 flex items-center gap-2"
             >
               <Sparkles className="w-4 h-4 text-[#282a36]" />
-              Fale com um Especialista
+              Fale com a Lisa
             </a>
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="flex md:hidden">
+          <div className="flex lg:hidden">
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -73,7 +83,15 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#282a36] border-b border-[#44475a] px-4 pt-3 pb-6 space-y-3 animate-in fade-in slide-in-from-top-4 duration-200">
+        <div className="lg:hidden bg-[#282a36] border-b border-[#44475a] px-4 pt-3 pb-6 space-y-3 animate-in fade-in slide-in-from-top-4 duration-200">
+          <a
+            href="#advocacia"
+            onClick={() => setMobileMenuOpen(false)}
+            className="flex items-center gap-2 px-3 py-2.5 rounded-lg text-base font-medium text-[#bd93f9] bg-[#bd93f9]/10 border border-[#bd93f9]/30"
+          >
+            <Scale className="w-4 h-4" />
+            Vertical Advocacia (Slides & Agente IA)
+          </a>
           <a
             href="#produtos"
             onClick={() => setMobileMenuOpen(false)}
@@ -82,18 +100,25 @@ export const Navbar: React.FC = () => {
             Ecossistema de Produtos
           </a>
           <a
+            href="#cases"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block px-3 py-2.5 rounded-lg text-base font-medium text-[#f8f8f2] hover:bg-[#44475a]"
+          >
+            Cases Reais (Concept Odontologia)
+          </a>
+          <a
+            href="#roi"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block px-3 py-2.5 rounded-lg text-base font-medium text-[#f8f8f2] hover:bg-[#44475a]"
+          >
+            Calculadora de ROI Reverso
+          </a>
+          <a
             href="#engenharia"
             onClick={() => setMobileMenuOpen(false)}
             className="block px-3 py-2.5 rounded-lg text-base font-medium text-[#f8f8f2] hover:bg-[#44475a]"
           >
             Como Construímos Software
-          </a>
-          <a
-            href="#cases"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block px-3 py-2.5 rounded-lg text-base font-medium text-[#f8f8f2] hover:bg-[#44475a]"
-          >
-            Cases Reais (Adv & Concept)
           </a>
           <a
             href="https://spedfacil.tiweb.app.br"
@@ -110,7 +135,7 @@ export const Navbar: React.FC = () => {
               onClick={() => setMobileMenuOpen(false)}
               className="block w-full text-center px-4 py-3 rounded-lg text-sm font-semibold text-[#282a36] bg-gradient-to-r from-[#bd93f9] to-[#8be9fd] shadow-md"
             >
-              Fale com um Especialista
+              Falar com a Lisa no WhatsApp
             </a>
           </div>
         </div>
