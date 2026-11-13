@@ -1,55 +1,41 @@
-# Plano de Execução — Milestone M1-REACT: Portal Guarda-Chuva TIWEB em React
+# Plano de Execução — Milestone M2: Vitrine de Cases & Vertical Advocacia
 
 ## 1. Contexto e Motivação
-O portal principal da TIWEB (\`tiweb.app.br\`) é a vitrine corporativa B2B e centro de autoridade técnica do ecossistema. Para garantir máxima velocidade, experiência tátil fluida a 60 FPS em dispositivos móveis e perfeita consistência com os cases de sucesso do ecossistema (\`concept-odontologia\` e \`adv\`), o portal principal está sendo desenvolvido em **React 18 + Vite + Tailwind CSS + Framer Motion**.
+A software house TIWEB demonstra sua autoridade técnica através de cases reais em produção (como o \`concept-odontologia\`) e verticais especializadas de inteligência artificial (como o ecossistema para \`Advocacia\`).
 
-A aplicação Angular (\`frontend-angular\`) permanece 100% preservada e isolada para atender exclusivamente o produto e assinantes do **SPED Fácil** em \`spedfacil.tiweb.app.br\`.
+O Milestone M2 entrega no frontend React:
+1. **Modo Apresentação no Celular (Swipe a 60 FPS):** Um slide deck interativo tátil inspirado no modelo \`adv\`, permitindo a Luciano apresentar o pitch comercial presencialmente na palma da mão (sem computador), além de permitir o download do PDF executivo.
+2. **Simulador Interativo do Agente de WhatsApp:** Protagonista da vertical jurídica, demonstrando em tempo real na tela como a IA faz triagem e qualificação de clientes respeitando o Código de Ética da OAB (sem expor margens ou tabelas de preços internos).
+3. **Vitrine do Case Real Concept Odontologia:** Apresentação do case de alto padrão em produção com métricas de conversão e link ao vivo.
+4. **Calculadora Reversa de ROI:** Simulação tátil de retorno de investimento e honorários recuperados.
 
-## 2. Issues do Milestone M1-REACT
-- **Issue #65 (\`[FE-REACT-001]\`):** Chore/Setup: Inicialização do Core React com Vite, Tailwind, Framer Motion e Vitest.
-- **Issue #66 (\`[FE-REACT-002]\`):** Feat: Hero Mobile-First com Animações Framer Motion & Bento Grid do Ecossistema.
-- **Issue #67 (\`[FE-REACT-003]\`):** Feat: Seção Interativa 'Como Construímos Software' com Visão Dual (Executivo vs CTO).
-- **Issue #68 (\`[CI-CD-002]\`):** Ops: Esteira Dual de CD (HostGator) — Deploy do React na Raiz e Isolamento do SPED Fácil.
+## 2. Rastreabilidade das Issues
+- **Issue #47 (\`[FE-CASES-001]\`):** Catálogo Interativo de Verticais com Visualizador Dual (Apresentação Comercial + Sistema Live).
+- **Issue #48 (\`[FE-CASES-002]\`):** Integração do Case Concept Odontologia com Simulador de ROI.
+- **Issue #71 (\`[FE-ADV-001]\`):** Vertical Advocacia com Modo Apresentação no Celular (Swipe 60 FPS) & Simulador do Agente WhatsApp.
 
 ## 3. Fronteira de Arquivos
-- \`frontend-react/*\`
-- \`.github/workflows/deploy.yml\`
-- \`.github/workflows/deploy-spedfacil.yml\`
-- \`.github/workflows/ci.yml\`
+- \`frontend-react/src/components/legal/*\`
+- \`frontend-react/src/components/cases/*\`
+- \`frontend-react/src/components/RoiCalculator.tsx\`
+- \`frontend-react/src/data/cases.ts\`
+- \`frontend-react/src/data/legalPresentation.ts\`
+- \`frontend-react/src/App.tsx\`
+- \`frontend-react/src/components/Navbar.tsx\`
+- \`frontend-react/src/test/*\`
 - \`plano.md\`
 
 ## 4. Passos Atômicos de Execução
-1. **Passo 1 (Bootstrap & TDD Core - Issue #65):**
-   - Inicializar \`frontend-react\` com template Vite + React + TypeScript.
-   - Instalar dependências de produção: \`lucide-react\`, \`clsx\`, \`tailwind-merge\`, \`framer-motion\`.
-   - Instalar dependências de dev/teste: \`tailwindcss\`, \`postcss\`, \`autoprefixer\`, \`vitest\`, \`@testing-library/react\`, \`@testing-library/jest-dom\`, \`jsdom\`.
-   - Configurar Tailwind com tokens oficiais do tema Dracula (\`#282a36\`, \`#bd93f9\`, \`#8be9fd\`, \`#50fa7b\`, \`#ff79c6\`, \`#ffb86c\`, \`#44475a\`, \`#f8f8f2\`).
-   - Configurar Vitest e criar primeiro teste de renderização.
-
-2. **Passo 2 (Hero & Bento Grid - Issue #66):**
-   - Criar \`Navbar.tsx\` responsiva com menu mobile gaveta a 60 FPS.
-   - Criar \`Hero.tsx\` com tipografia Dracula, headline em degradê neon, contadores de métricas de engenharia (TDD 93%, Multi-Tenant LGPD, Rollback Atômico SSOT) e CTAs táteis.
-   - Criar \`BentoGrid.tsx\` interativo apresentando os 4 produtos:
-     - \`SmartContact\` (CRM & IA Atendimento)
-     - \`MAS / Educa-IA\` (Motor de Aprendizagem & Simuladores)
-     - \`Lisa / Automação Social\` (Automação de Conteúdo & Meta API)
-     - \`SPED Fácil\` (Automação Fiscal com link para \`https://spedfacil.tiweb.app.br\`)
-   - Criar \`Footer.tsx\` corporativo.
-   - Testes unitários para renderização dos produtos e links.
-
-3. **Passo 3 (Como Construímos Software - Issue #67):**
-   - Criar \`EngineeringTrust.tsx\` com toggle interativo animado em Framer Motion:
-     - *Visão Executiva:* Proteção de Investimento, LGPD Blindada, Retorno sobre o Investimento, Alta Disponibilidade.
-     - *Visão Técnica / CTO:* SSOT Inegociável, Cobertura TDD ≥ 93%, Git Flow Rigoroso, Quality Gates & Rollback Atômico.
-   - Timeline interativa do pipeline de 4 estágios.
-   - Testes unitários para alternância de visualização.
-
-4. **Passo 4 (Esteira Dual de CD - Issue #68):**
-   - Atualizar \`.github/workflows/deploy.yml\` para compilar \`frontend-react\` e fazer upload FTP na raiz da HostGator (\`tiweb.app.br\`).
-   - Criar \`.github/workflows/deploy-spedfacil.yml\` para compilar \`frontend-angular\` e fazer upload FTP na subpasta \`spedfacil/\` (\`spedfacil.tiweb.app.br\`).
-   - Atualizar \`.github/workflows/ci.yml\` para testar ambos os projetos.
-
-## 5. Critérios de Validação
-- Todos os testes unitários passando 100% (\`npm run test\` em \`frontend-react\`).
-- Build estático concluído sem erros (\`npm run build\` em \`frontend-react\`).
-- CI/CD validado sem warnings ou quebras.
+1. **Passo 1 (Dados e Modelagem - Cases & Apresentação):**
+   - Criar \`src/data/cases.ts\` com os dados do case Concept Odontologia (estudo de caso, métricas, stack).
+   - Criar \`src/data/legalPresentation.ts\` com os 7 slides sintetizados do modelo da pasta \`adv\`.
+2. **Passo 2 (Modo Apresentação no Celular & Simulador WhatsApp - Issue #71):**
+   - Criar \`LegalPresentationModal.tsx\` ou tela de slides com transições Framer Motion para navegação por swipe no celular.
+   - Criar \`WhatsAppSimulator.tsx\` com interface tátil do WhatsApp simulando triagem jurídica automática.
+   - Criar \`LegalVerticalSection.tsx\` integrando a oferta para a Persona Jurídica.
+3. **Passo 3 (Case Concept Odontologia & Calculadora de ROI - Issues #47 e #48):**
+   - Criar \`CasesShowcase.tsx\` com visualizador do case Concept e link de produção.
+   - Criar \`RoiCalculator.tsx\` interativo com cálculo de payback e valor gerado.
+4. **Passo 4 (TDD & Validação dos Testes):**
+   - Testes unitários para troca de slides, simulação do WhatsApp e cálculo de ROI.
+   - Build e validação no CI.
