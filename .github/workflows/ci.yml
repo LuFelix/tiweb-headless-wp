@@ -11,8 +11,36 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
-    name: 🏗️ Validação e Build do Frontend Angular
+  validate-react:
+    name: ⚛️ Test & Build (TIWEB React)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: 📥 Checkout do Repositório
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: frontend-react/package-lock.json
+
+      - name: 📦 Instalar Dependências (React)
+        working-directory: ./frontend-react
+        run: npm ci
+
+      - name: 🧪 Executar Testes Unitários (Vitest)
+        working-directory: ./frontend-react
+        run: npm run test
+
+      - name: 🏗️ Compilar Aplicação React
+        working-directory: ./frontend-react
+        run: npm run build
+
+  validate-angular:
+    name: 🅰️ Build (SPED Fácil Angular)
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -27,10 +55,12 @@ jobs:
           cache: npm
           cache-dependency-path: frontend-angular/package-lock.json
 
-      - name: 📦 Instalar Dependências (Frontend)
+      - name: 📦 Instalar Dependências (Angular)
         working-directory: ./frontend-angular
         run: npm ci
 
-      - name: 🏗️ Compilar Aplicação Angular (Build de Produção)
+      - name: 🏗️ Compilar Aplicação Angular
         working-directory: ./frontend-angular
+        env:
+          NG_PERSISTENT_BUILD_CACHE: "0"
         run: npm run build
