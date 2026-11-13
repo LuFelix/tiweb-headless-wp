@@ -1,4 +1,4 @@
-export const LISA_WHATSAPP_NUMBER = '5582982179000';
+export const LISA_WHATSAPP_NUMBER = '5582991821555';
 
 export const getLisaWhatsAppUrl = (customMessage?: string): string => {
   const message =
