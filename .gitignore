@@ -25,12 +25,15 @@ database-dump/
 /connect.lock
 /libpeerconnection.log
 
-# --- ANGULAR (Caminhos relativos à raiz) ---
+# --- FRONTENDS ---
 node_modules/
 **/node_modules/
 frontend-angular/dist/
 frontend-angular/.angular/cache
 frontend-angular/coverage
+frontend-react/dist/
+frontend-react/node_modules/
+*:Zone.Identifier
 npm-debug.log
 yarn-error.log
 testem.log

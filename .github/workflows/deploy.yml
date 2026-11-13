@@ -1,4 +1,4 @@
-name: 🚀 Deploy Produção (HostGator via FTP)
+name: 🚀 Deploy Produção TIWEB (HostGator via FTP)
 
 on:
   push:
@@ -7,12 +7,12 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: production-ftp-deploy
+  group: production-ftp-deploy-tiweb
   cancel-in-progress: false
 
 jobs:
   deploy:
-    name: 🌐 Build & FTP Deploy (HostGator)
+    name: 🌐 Build & FTP Deploy (TIWEB React)
     runs-on: ubuntu-latest
     environment: production
     timeout-minutes: 15
@@ -26,16 +26,18 @@ jobs:
         with:
           node-version: 20
           cache: npm
-          cache-dependency-path: frontend-angular/package-lock.json
+          cache-dependency-path: frontend-react/package-lock.json
 
-      - name: 📦 Instalar Dependências (Frontend)
-        working-directory: ./frontend-angular
+      - name: 📦 Instalar Dependências (React)
+        working-directory: ./frontend-react
         run: npm ci
 
-      - name: 🏗️ Compilar Aplicação Angular (Build Estático)
-        working-directory: ./frontend-angular
-        env:
-          NG_PERSISTENT_BUILD_CACHE: "0"
+      - name: 🧪 Executar Testes Unitários
+        working-directory: ./frontend-react
+        run: npm run test
+
+      - name: 🏗️ Compilar Aplicação React
+        working-directory: ./frontend-react
         run: npm run build
 
       - name: 🚀 Sincronizar Arquivos via FTP para Hospedagem
@@ -44,7 +46,7 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./frontend-angular/dist/frontend-tiweb/browser/
+          local-dir: ./frontend-react/dist/
           server-dir: ${{ secrets.FTP_SERVER_DIR || './' }}
           dangerous-clean-slate: false
 
