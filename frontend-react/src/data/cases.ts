@@ -35,7 +35,7 @@ export const SHOWCASE_CASES: ShowcaseCase[] = [
     ],
     techStack: ['React 19', 'Vite', 'Tailwind CSS', 'Framer Motion', 'HostGator CD'],
     actionLabel: 'Acessar Concept Odontologia ao Vivo',
-    liveUrl: 'https://conceptodontologia.com.br',
+    liveUrl: 'https://conceptodontologia.odo.br',
     accentColor: '#8be9fd'
   },
   {

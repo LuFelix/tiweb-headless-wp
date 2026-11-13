@@ -17,7 +17,7 @@ describe('CasesShowcase Component', () => {
     expect(screen.getByText('PROJETO REAL')).toBeInTheDocument();
 
     const link = screen.getByRole('link', { name: /Acessar Concept Odontologia ao Vivo/i });
-    expect(link).toHaveAttribute('href', 'https://conceptodontologia.com.br');
+    expect(link).toHaveAttribute('href', 'https://conceptodontologia.odo.br');
     expect(link).toHaveAttribute('target', '_blank');
   });
 
