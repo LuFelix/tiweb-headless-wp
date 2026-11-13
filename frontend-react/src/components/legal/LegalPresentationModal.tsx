@@ -10,6 +10,51 @@ interface LegalPresentationModalProps {
 
 export const LegalPresentationModal: React.FC<LegalPresentationModalProps> = ({ isOpen, onClose }) => {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  const [touchEndX, setTouchEndX] = useState<number | null>(null);
+
+  const minSwipeDistance = 40; // sensibilidade do swipe em pixels
+
+  const nextSlide = () => {
+    if (currentSlideIndex < LEGAL_SLIDES.length - 1) {
+      setCurrentSlideIndex((prev) => prev + 1);
+    }
+  };
+
+  const prevSlide = () => {
+    if (currentSlideIndex > 0) {
+      setCurrentSlideIndex((prev) => prev - 1);
+    }
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchEndX(null);
+    if (e.targetTouches && e.targetTouches.length > 0) {
+      setTouchStartX(e.targetTouches[0].clientX);
+    }
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (e.targetTouches && e.targetTouches.length > 0) {
+      setTouchEndX(e.targetTouches[0].clientX);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartX === null || touchEndX === null) return;
+    const distance = touchStartX - touchEndX;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      nextSlide();
+    } else if (isRightSwipe) {
+      prevSlide();
+    }
+
+    setTouchStartX(null);
+    setTouchEndX(null);
+  };
 
   // Navegação por teclado
   useEffect(() => {
@@ -31,18 +76,6 @@ export const LegalPresentationModal: React.FC<LegalPresentationModalProps> = ({ 
   if (!isOpen) return null;
 
   const currentSlide = LEGAL_SLIDES[currentSlideIndex];
-
-  const nextSlide = () => {
-    if (currentSlideIndex < LEGAL_SLIDES.length - 1) {
-      setCurrentSlideIndex((prev) => prev + 1);
-    }
-  };
-
-  const prevSlide = () => {
-    if (currentSlideIndex > 0) {
-      setCurrentSlideIndex((prev) => prev - 1);
-    }
-  };
 
   const renderIcon = (iconName: string) => {
     switch (iconName) {
@@ -71,8 +104,8 @@ export const LegalPresentationModal: React.FC<LegalPresentationModalProps> = ({ 
           <div className="px-3 py-1 rounded-full bg-[#bd93f9]/20 border border-[#bd93f9]/40 text-[#bd93f9] text-xs font-mono font-bold">
             MODO APRESENTAÇÃO EXECUTIVA
           </div>
-          <span className="text-xs font-mono text-[#f8f8f2]/60 hidden sm:inline">
-            Use as setas ou deslize no celular
+          <span className="text-xs font-mono text-[#f8f8f2]/70 font-medium">
+            Deslize na tela 👈 👉 ou use setas
           </span>
         </div>
 
@@ -100,7 +133,13 @@ export const LegalPresentationModal: React.FC<LegalPresentationModalProps> = ({ 
       </div>
 
       {/* Main Slide Content Area with Swipe Gesture */}
-      <div className="flex-1 flex items-center justify-center py-4">
+      <div
+        className="flex-1 flex items-center justify-center py-4 touch-pan-y select-none"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        data-testid="presentation-slide-container"
+      >
         <AnimatePresence mode="wait">
           <motion.div
             key={currentSlide.id}
@@ -108,7 +147,17 @@ export const LegalPresentationModal: React.FC<LegalPresentationModalProps> = ({ 
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -40 }}
             transition={{ duration: 0.3 }}
-            className="w-full max-w-4xl bg-[#44475a]/30 border border-[#6272a4]/40 rounded-3xl p-6 sm:p-10 shadow-2xl flex flex-col justify-between"
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.2}
+            onDragEnd={(_, info) => {
+              if (info.offset.x < -minSwipeDistance) {
+                nextSlide();
+              } else if (info.offset.x > minSwipeDistance) {
+                prevSlide();
+              }
+            }}
+            className="w-full max-w-4xl bg-[#44475a]/30 border border-[#6272a4]/40 rounded-3xl p-6 sm:p-10 shadow-2xl flex flex-col justify-between cursor-grab active:cursor-grabbing"
           >
             {/* Slide Header */}
             <div>
