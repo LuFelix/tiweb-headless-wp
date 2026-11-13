@@ -38,6 +38,32 @@ describe('LegalVerticalSection Component', () => {
       expect(screen.queryByText('MODO APRESENTAÇÃO EXECUTIVA')).not.toBeInTheDocument();
     });
   });
+
+  it('advances slide on touch swipe left and returns on touch swipe right', async () => {
+    render(<LegalVerticalSection />);
+    const openBtn = screen.getByRole('button', { name: /Abrir Apresentação no Celular \(7 Slides\)/i });
+    fireEvent.click(openBtn);
+
+    const slideContainer = screen.getByTestId('presentation-slide-container');
+
+    // Swipe left (advance to slide 2)
+    fireEvent.touchStart(slideContainer, { targetTouches: [{ clientX: 300 }] });
+    fireEvent.touchMove(slideContainer, { targetTouches: [{ clientX: 200 }] });
+    fireEvent.touchEnd(slideContainer);
+
+    await waitFor(() => {
+      expect(screen.getByText(/SLIDE 2 DE 7/i)).toBeInTheDocument();
+    });
+
+    // Swipe right (return to slide 1)
+    fireEvent.touchStart(slideContainer, { targetTouches: [{ clientX: 200 }] });
+    fireEvent.touchMove(slideContainer, { targetTouches: [{ clientX: 300 }] });
+    fireEvent.touchEnd(slideContainer);
+
+    await waitFor(() => {
+      expect(screen.getByText(/SLIDE 1 DE 7/i)).toBeInTheDocument();
+    });
+  });
 });
 
 describe('WhatsAppSimulator Component', () => {

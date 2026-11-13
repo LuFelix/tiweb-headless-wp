@@ -24,7 +24,7 @@ export const RoiCalculator: React.FC = () => {
           <h2 className="text-3xl sm:text-5xl font-extrabold text-[#f8f8f2] tracking-tight">
             Calculadora de Retorno (ROI Reverso)
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-[#f8f8f2]/70 leading-relaxed">
+          <p className="mt-4 text-base sm:text-lg text-[#f8f8f2] font-medium leading-relaxed max-w-2xl mx-auto">
             Quantos clientes você deixa na mesa todos os meses por demora no primeiro atendimento? Simule o valor financeiro real recuperado com automação e IA.
           </p>
         </div>
@@ -50,7 +50,7 @@ export const RoiCalculator: React.FC = () => {
                 onChange={(e) => setTicketMedio(Number(e.target.value))}
                 className="w-full h-2 bg-[#44475a] rounded-lg appearance-none cursor-pointer accent-[#bd93f9]"
               />
-              <div className="flex justify-between text-[10px] text-[#6272a4] font-mono mt-1">
+              <div className="flex justify-between text-[11px] text-[#f8f8f2]/80 font-mono mt-1 font-semibold">
                 <span>R$ 1.000</span>
                 <span>R$ 20.000+</span>
               </div>
@@ -73,7 +73,7 @@ export const RoiCalculator: React.FC = () => {
                 onChange={(e) => setLeadsPerdidos(Number(e.target.value))}
                 className="w-full h-2 bg-[#44475a] rounded-lg appearance-none cursor-pointer accent-[#8be9fd]"
               />
-              <div className="flex justify-between text-[10px] text-[#6272a4] font-mono mt-1">
+              <div className="flex justify-between text-[11px] text-[#f8f8f2]/80 font-mono mt-1 font-semibold">
                 <span>2 contatos</span>
                 <span>40 contatos</span>
               </div>
@@ -96,7 +96,7 @@ export const RoiCalculator: React.FC = () => {
                 onChange={(e) => setTaxaConversao(Number(e.target.value))}
                 className="w-full h-2 bg-[#44475a] rounded-lg appearance-none cursor-pointer accent-[#bd93f9]"
               />
-              <div className="flex justify-between text-[10px] text-[#6272a4] font-mono mt-1">
+              <div className="flex justify-between text-[11px] text-[#f8f8f2]/80 font-mono mt-1 font-semibold">
                 <span>10% (Conservador)</span>
                 <span>50% (Otimista)</span>
               </div>
