@@ -1,0 +1,54 @@
+name: 🚀 Deploy SmartLegal (HostGator via FTP)
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'frontend-smartlegal/**'
+      - '.github/workflows/deploy-smartlegal.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: production-ftp-deploy-smartlegal
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: ⚖️ Build & FTP Deploy (SmartLegal React)
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 15
+
+    steps:
+      - name: 📥 Checkout do Repositório
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: frontend-smartlegal/package-lock.json
+
+      - name: 📦 Instalar Dependências (React 19 / Vite)
+        working-directory: ./frontend-smartlegal
+        run: npm ci
+
+      - name: 🧪 Executar Testes Unitários
+        working-directory: ./frontend-smartlegal
+        run: npm run test
+
+      - name: 🏗️ Compilar Aplicação React
+        working-directory: ./frontend-smartlegal
+        run: npm run build
+
+      - name: 🚀 Sincronizar Arquivos via FTP para Subpasta SmartLegal
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./frontend-smartlegal/dist/
+          server-dir: ${{ secrets.FTP_SMARTLEGAL_DIR || './smartlegal/' }}
+          dangerous-clean-slate: false

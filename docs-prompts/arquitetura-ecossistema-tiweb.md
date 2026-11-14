@@ -1,141 +1,54 @@
 # 🗺️ Guia de Arquitetura e Mapa Completo do Ecossistema TIWEB
 
-Este documento serve como a **Fonte Única de Verdade (Single Source of Truth)** sobre toda a infraestrutura, domínios, DNS, containers e código do ecossistema TIWEB. Foi escrito de forma didática para que qualquer **desenvolvedor (do nível júnior ao sênior) ou agente de IA** compreenda a arquitetura imediatamente e continue o desenvolvimento sem quebras de contrato.
+Este documento serve como a **Fonte Única de Verdade (Single Source of Truth)** sobre toda a infraestrutura, domínios, DNS, containers e código do ecossistema TIWEB.
 
 ---
 
-## 🏢 1. Visão Geral do Ecossistema
+## 🏢 1. Topologia Geral do Ecossistema
 
-O ecossistema TIWEB é composto por microsserviços, portais web, pipelines de dados e automações sociais inteligentes, todos orquestrados via **Docker Compose** e expostos por um **Proxy Reverso Central (Nginx Proxy Manager)** com terminação SSL (HTTPS).
+O ecossistema TIWEB é dividido em duas infraestruturas estratégicas desacopladas:
+
+1. **Hospedagem Compartilhada (HostGator - `50.116.87.68`):**
+   - Camada de aquisição, portais estáticos de ultra-velocidade (React/Angular), blog, checkout WooCommerce e área de membros / mimos.
+2. **Servidor Dedicado Cloud (VPS Hostinger - `13.140.163.193`):**
+   - Camada de execução de sistemas corporativos pesados, bancos relacionais isolados por tenant, webhooks n8n, robôs de IA social e stack de telemetria/observabilidade (Grafana + Prometheus).
 
 ```
-                              [ INTERNET / VISITANTES ]
-                                         │
-                                         ▼
-                     [ DNS / Nginx Proxy Manager (Portas 80 / 443) ]
-                                         │
-       ┌──────────────────┬──────────────┴─────┬──────────────────┬─────────────────┐
-       ▼                  ▼                    ▼                  ▼                 ▼
-  [ tiweb.app.br ]  [ spedfacil... ]     [ wp.tiweb... ]   [ n8n.tiweb... ]   [ smartcontact... ]
-  Nova Landing Page   Angular 17+ SPA     WordPress Core     Motor n8n Core    SmartContact App
-  (Em construção)   (SPED / Downloads)   (Headless / Blog)  (IA & Automações)  (Gestão & APIs)
+                               [ INTERNET / VISITANTES ]
+                                          │
+                  ┌───────────────────────┴───────────────────────┐
+                  ▼                                               ▼
+     [ HOSTGATOR: 50.116.87.68 ]                     [ VPS: 13.140.163.193 ]
+  (Apache + PHP 8.2 + FTP Deploy)                (Docker + Nginx Proxy Manager)
+                  │                                               │
+   ├── tiweb.app.br (Portal React)                 ├── smartcontact.tiweb.app.br
+   ├── tiweb.app.br/wp-json (WordPress Core)       ├── api.smartcontact.tiweb.app.br
+   ├── spedfacil.tiweb.app.br (Angular SPA)        ├── n8n.tiweb.app.br (Orquestrador)
+   ├── smartlegal.tiweb.app.br (React Showcase)    ├── mas.educa-ia.app.br (Motor MAS)
+   ├── conceptodontologia.odo.br (React)           └── grafana.tiweb.app.br (Observabilidade)
+   └── educa-ia.app.br (Portal Loja MAS)
 ```
 
 ---
 
 ## 🌐 2. Mapa Completo de Domínios e DNS
 
-Abaixo está o mapeamento detalhado de todos os apontamentos de DNS do domínio `tiweb.app.br`:
-
-### 🚀 A. Serviços Ativos no VPS Principal (`13.140.163.193`)
-| Domínio / Subdomínio | Tipo | Destino / IP | Aplicação / Função | Container Docker |
+| Domínio / Subdomínio | Tipo | Destino / IP | Aplicação / Função | Hospedagem / Stack |
 | :--- | :--- | :--- | :--- | :--- |
-| **`tiweb.app.br`** | A | `13.140.163.193` | Landing Page Principal Institucional (Nova) | `tiweb_web_prod` (ou nova LP) |
-| **`www.tiweb.app.br`** | CNAME | `tiweb.app.br` | Alias da página principal | Roteado para `tiweb.app.br` |
-| **`spedfacil.tiweb.app.br`** | A | `13.140.163.193` | SPA Angular (Sistema SPED Fácil, downloads, dashboard) | `tiweb_web_prod:80` |
-| **`wp.tiweb.app.br`** | A | `13.140.163.193` | WordPress Headless (Backend, Blog, API `/wp-json`) | `tiweb_wp_prod:80` |
-| **`n8n.tiweb.app.br`** | A | `13.140.163.193` | Orquestrador de Automações e Webhooks | `automacao_n8n_prod:5678` |
-| **`smartcontact.tiweb.app.br`** | A | `13.140.163.193` | Frontend do SmartContact | `smartcontact_web_prod:80` |
-| **`api.smartcontact.tiweb.app.br`**| A | `13.140.163.193` | API Backend NestJS do SmartContact | `smartcontact_api_prod:3000` |
-| **`oxehelp.tiweb.app.br`** | A | `13.140.163.193` | Portal Helpdesk Oxetech | `front_prod:80` |
-| **`api-oxehelp.tiweb.app.br`** | A | `13.140.163.193` | API Backend Oxetech | `back_prod:3000` |
-
-### 📧 B. Serviços de E-mail Corporativo (Titan / Hostgator - NÃO ALTERAR)
-| Registro | Tipo | Prioridade / Valor | Finalidade |
-| :--- | :--- | :--- | :--- |
-| `tiweb.app.br` | MX | `10 -> mx1.titan.email` | Roteamento de e-mails corporativos |
-| `tiweb.app.br` | MX | `20 -> mx2.titan.email` | Servidor de e-mail secundário |
-| `tiweb.app.br` | TXT | `v=spf1 include:spf.titan.email ~all` | Validação SPF anti-spam |
-| `titan1._domainkey...` | TXT | Assinatura DKIM Titan | Autenticação criptográfica de e-mails |
-| `webmail.tiweb.app.br`| CNAME| `titan.hostgator.com.br` | Webmail corporativo |
-
-### 🏛️ C. Serviços Legados / Hospedagem Antiga (`50.116.87.68`)
-- Subdomínios como `cpanel.*`, `webdisk.*`, `cpcontacts.*`, `educa-ia.*` e `andromedacontabilidade.*` apontavam para o cPanel legado e estão em processo de transição/descontinuação.
+| **`tiweb.app.br`** | A | `50.116.87.68` | Portal Corporativo TIWEB (React Vite) + WP REST API | HostGator (Raiz `public_html/`) |
+| **`spedfacil.tiweb.app.br`** | A | `50.116.87.68` | SPA SPED Fácil (Angular 17+ / Área de Downloads) | HostGator (`public_html/spedfacil/`) |
+| **`smartlegal.tiweb.app.br`** | A | `50.116.87.68` | Showcase Vertical Advocacia (React) | HostGator (`public_html/smartlegal/`) |
+| **`conceptodontologia.odo.br`**| A | `50.116.87.68` | Case Real Clínica Odontológica (React) | HostGator (`public_html/concept.../`) |
+| **`educa-ia.app.br`** | A | `50.116.87.68` | Portal e Loja WooCommerce do MAS | HostGator (`public_html/educa-ia/`) |
+| **`smartcontact.tiweb.app.br`**| A | `13.140.163.193`| Frontend do SmartContact (SaaS Atendimento) | VPS (Docker) |
+| **`api.smartcontact...`** | A | `13.140.163.193`| API Backend NestJS do SmartContact | VPS (Docker) |
+| **`n8n.tiweb.app.br`** | A | `13.140.163.193`| Orquestrador de Automações Sociais e Webhooks | VPS (Docker) |
+| **`mas.educa-ia.app.br`** | A | `13.140.163.193`| Motor de Aprendizagem Smart (Lab/Simuladores) | VPS (Docker) |
 
 ---
 
-## 🖥️ 3. Arquitetura de Containers no VPS
+## 🖥️ 3. Descomissionamento na VPS & Ganho de Recursos
 
-Todos os projetos residem em `/var/www/` no VPS (`admin@13.140.163.193`):
-
-### 📁 Estrutura de Diretórios no VPS:
-```text
-/var/www/
-├── proxy/                # Nginx Proxy Manager (Portas públicas 80, 81, 443)
-├── automacao/            # n8n, PostgreSQL dedicado, ElizaOS Agent
-├── site-tiweb/           # WordPress Headless, MySQL 8.0, Angular SPA
-├── smartcontact/         # SmartContact (NestJS + Angular + Postgres)
-├── educa-ia/             # Plataforma Educa-IA
-└── oxetech-811-base-...  # Sistema HelpDesk
-```
-
-### 🔒 Topologia de Redes Docker:
-1. **Rede Externa `webproxy` (Bridge compartilhada)**:
-   - Conecta apenas os containers que precisam receber tráfego HTTP/HTTPS do Nginx Proxy Manager (`tiweb_wp_prod`, `tiweb_web_prod`, `automacao_n8n_prod`, etc.).
-2. **Redes Internas Segregadas**:
-   - `automacao-network`: Isolamento exclusivo entre o `n8n` e o `postgres-automacao`.
-   - `tiweb-network`: Isolamento exclusivo entre o `wordpress` e o `tiweb_mysql_prod`.
-   - `smartcontact-network`: Isolamento exclusivo do banco do SmartContact.
-   - **Regra de Ouro**: **Nenhum banco de dados expõe portas diretamente no host público (`0.0.0.0`)**, eliminando riscos de invasão por força bruta ou vazamento LGPD.
-
----
-
-## 🧩 4. Detalhamento dos Componentes Core
-
-### 1️⃣ WordPress Headless (`/site-tiweb` / `wp.tiweb.app.br`)
-- **Papel**: Atua como CMS de conteúdo, gerenciador de posts técnicos, páginas e endpoints de dados REST.
-- **Banco de Dados**: MySQL 8.0 no container `tiweb_mysql_prod` (banco `site_antigo_db`).
-- **Principais Endpoints REST**:
-  - `GET /wp-json/wp/v2/posts` $\rightarrow$ Lista de artigos do blog.
-  - `POST /wp-json/wp/v2/posts` $\rightarrow$ Criação automatizada de posts via n8n (autenticado por *Application Password*).
-  - `GET /wp-json/wp/v2/pages` $\rightarrow$ Páginas institucionais.
-- **Plugins Customizados do Projeto**:
-  - `tiweb-content-manager`: Gerenciador de downloads de arquivos e recursos protegidos.
-  - `tiweb-google-auth`: Autenticação integrada com Google Sign-In.
-
-### 2️⃣ Frontend Angular SPA (`/site-tiweb/frontend-angular` / `spedfacil.tiweb.app.br`)
-- **Papel**: Interface moderna em **Angular 17+**, focada no produto **SPED Fácil**, área de membros, downloads protegidos e formulários reativos.
-- **Compilação**: Dockerfile multi-stage (`Node.js 20` para compilar o Angular e `Nginx Alpine` superleve para servir o HTML/JS/CSS estático com cache agressivo).
-- **Injeção de Ambiente**:
-  - O script `scripts/set-env.js` gera dinamicamente os arquivos `environment.ts` e `environment.development.ts` a partir do arquivo `.env`.
-  - Suporta `apiUrl` (REST) e `graphqlUrl` (GraphQL).
-
-### 3️⃣ Motor de Automações (`/automacao` / `n8n.tiweb.app.br`)
-- **Papel**: Orquestrador de workflows transacionais e esteira de conteúdo assistida por IA.
-- **Banco de Dados**: PostgreSQL 16 dedicado (`automacao_postgres_prod`).
-- **Fluxos Ativos / Previstos**:
-  - **Pipeline de Conteúdo IA**: Cron semanal $\rightarrow$ RSS Feeds tech $\rightarrow$ Gemini API (Gera Post + Carrossel + Artigo) $\rightarrow$ Aprovação no Telegram $\rightarrow$ Publicação no WordPress (`wp.tiweb.app.br`) e Instagram Graph API.
-  - **Captura de Leads**: Webhooks transacionais integrados a formulários de contato das Landing Pages com alerta em tempo real.
-
----
-
-## 🛠️ 5. Guia Rápido para Novos Desenvolvedores & IAs
-
-### Como rodar localmente no seu computador:
-```bash
-# Para o ecossistema de automação:
-cd /home/jaspion/projetos/automacao
-docker compose up -d
-
-# Para o site WordPress e Angular:
-cd /home/jaspion/projetos/site-tiweb
-docker compose up -d
-```
-
-### Como fazer deploy no servidor VPS:
-Ambos os projetos contam com o script padronizado `deploy.sh`:
-```bash
-# Conectar no VPS
-ssh admin@13.140.163.193
-
-# Atualizar Automações:
-cd /var/www/automacao && ./deploy.sh
-
-# Atualizar Site TIWEB (WP + Angular):
-cd /var/www/site-tiweb && ./deploy.sh
-```
-
-### 🚨 Regras Importantes de Segurança & Git:
-1. **NUNCA comite arquivos `.env` ou dumps `.sql`**: Mantenha as credenciais apenas nas variáveis locais do servidor.
-2. **Commits Atômicos**: Sempre faça commits pequenos em inglês seguindo o padrão Conventional Commits (`feat:`, `fix:`, `docs:`, `chore:`).
-3. **Fluxo de Branches**: Toda alteração deve ser desenvolvida em branch de feature (`feature/nome-da-tarefa`) e submetida via Pull Request para `develop`/`main`.
+Com a virada do tráfego do `site-tiweb` e `spedfacil` para a HostGator, os contêineres legados `tiweb_wp_prod`, `tiweb_mysql_prod` e `tiweb_web_prod` foram desligados na VPS.
+- **Memória RAM Liberada:** ~1.5 GB de RAM.
+- **Destinação da Folga:** Entrada da stack de observabilidade centralizada (**Grafana + Prometheus + Node Exporter**) para monitoramento de SLA e saúde dos robôs de clientes.
