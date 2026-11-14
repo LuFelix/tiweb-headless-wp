@@ -103,25 +103,43 @@ export const BentoGrid: React.FC = () => {
                     ))}
                   </div>
 
-                  {/* Botão de Ação */}
-                  <a
-                    href={product.actionUrl}
-                    target={product.isExternal ? '_blank' : '_self'}
-                    rel={product.isExternal ? 'noopener noreferrer' : undefined}
-                    className="w-full py-3 px-4 rounded-xl text-sm font-semibold flex items-center justify-center gap-2 transition-all duration-200 border"
-                    style={{
-                      backgroundColor: `${product.accentColor}20`,
-                      borderColor: `${product.accentColor}60`,
-                      color: product.accentColor,
-                    }}
-                  >
-                    <span>{product.actionLabel}</span>
-                    {product.isExternal ? (
-                      <ExternalLink className="w-4 h-4" />
-                    ) : (
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  {/* Botões de Ação */}
+                  <div className={product.secondaryActionUrl ? 'grid grid-cols-1 sm:grid-cols-2 gap-3' : ''}>
+                    <a
+                      href={product.actionUrl}
+                      target={product.isExternal ? '_blank' : '_self'}
+                      rel={product.isExternal ? 'noopener noreferrer' : undefined}
+                      className="w-full py-3 px-4 rounded-xl text-sm font-semibold flex items-center justify-center gap-2 transition-all duration-200 border"
+                      style={{
+                        backgroundColor: `${product.accentColor}20`,
+                        borderColor: `${product.accentColor}60`,
+                        color: product.accentColor,
+                      }}
+                    >
+                      <span>{product.actionLabel}</span>
+                      {product.isExternal ? (
+                        <ExternalLink className="w-4 h-4 shrink-0" />
+                      ) : (
+                        <ArrowRight className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform" />
+                      )}
+                    </a>
+
+                    {product.secondaryActionUrl && product.secondaryActionLabel && (
+                      <a
+                        href={product.secondaryActionUrl}
+                        target={product.secondaryIsExternal ? '_blank' : '_self'}
+                        rel={product.secondaryIsExternal ? 'noopener noreferrer' : undefined}
+                        className="w-full py-3 px-4 rounded-xl text-sm font-semibold flex items-center justify-center gap-2 transition-all duration-200 border bg-[#282a36]/80 hover:bg-[#282a36] text-[#f8f8f2] border-[#6272a4]/50 hover:border-[#8be9fd]/60"
+                      >
+                        <span>{product.secondaryActionLabel}</span>
+                        {product.secondaryIsExternal ? (
+                          <ExternalLink className="w-4 h-4 shrink-0" />
+                        ) : (
+                          <ArrowRight className="w-4 h-4 shrink-0" />
+                        )}
+                      </a>
                     )}
-                  </a>
+                  </div>
                 </div>
               </motion.div>
             );

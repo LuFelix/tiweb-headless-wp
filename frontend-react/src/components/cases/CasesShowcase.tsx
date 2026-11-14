@@ -126,25 +126,39 @@ export const CasesShowcase: React.FC = () => {
                   ))}
                 </div>
 
-                {caseItem.liveUrl ? (
-                  <a
-                    href={caseItem.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full py-3 px-4 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all bg-[#44475a]/70 hover:bg-[#bd93f9]/30 text-[#f8f8f2] hover:text-[#bd93f9] border border-[#6272a4]/40"
-                  >
-                    <span>{caseItem.actionLabel}</span>
-                    <ExternalLink className="w-4 h-4" />
-                  </a>
-                ) : (
-                  <a
-                    href="#advocacia"
-                    className="w-full py-3 px-4 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all bg-gradient-to-r from-[#bd93f9] to-[#8be9fd] text-[#282a36] hover:opacity-90"
-                  >
-                    <span>{caseItem.actionLabel}</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </a>
-                )}
+                <div className={caseItem.secondaryLiveUrl ? 'grid grid-cols-1 sm:grid-cols-2 gap-3' : ''}>
+                  {caseItem.liveUrl ? (
+                    <a
+                      href={caseItem.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full py-3 px-4 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all bg-[#44475a]/70 hover:bg-[#bd93f9]/30 text-[#f8f8f2] hover:text-[#bd93f9] border border-[#6272a4]/40"
+                    >
+                      <span>{caseItem.actionLabel}</span>
+                      <ExternalLink className="w-4 h-4 shrink-0" />
+                    </a>
+                  ) : (
+                    <a
+                      href="#advocacia"
+                      className="w-full py-3 px-4 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all bg-gradient-to-r from-[#bd93f9] to-[#8be9fd] text-[#282a36] hover:opacity-90"
+                    >
+                      <span>{caseItem.actionLabel}</span>
+                      <ArrowRight className="w-4 h-4 shrink-0" />
+                    </a>
+                  )}
+
+                  {caseItem.secondaryLiveUrl && caseItem.secondaryActionLabel && (
+                    <a
+                      href={caseItem.secondaryLiveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full py-3 px-4 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all bg-[#44475a]/70 hover:bg-[#8be9fd]/20 text-[#f8f8f2] hover:text-[#8be9fd] border border-[#6272a4]/40"
+                    >
+                      <span>{caseItem.secondaryActionLabel}</span>
+                      <ExternalLink className="w-4 h-4 shrink-0" />
+                    </a>
+                  )}
+                </div>
               </div>
             </motion.div>
           ))}
