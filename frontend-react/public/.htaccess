@@ -1,8 +1,39 @@
+Options -Indexes
+
+<IfModule mod_headers.c>
+  SetEnvIf Origin "^https://(spedfacil\.)?tiweb\.app\.br$" AccessControlAllowOrigin=$0
+  Header always set Access-Control-Allow-Origin %{AccessControlAllowOrigin}e env=AccessControlAllowOrigin
+  Header always set Access-Control-Allow-Methods "POST, GET, OPTIONS, PUT, DELETE" env=AccessControlAllowOrigin
+  Header always set Access-Control-Allow-Headers "Authorization, Content-Type, X-Requested-With" env=AccessControlAllowOrigin
+  Header always set Access-Control-Allow-Credentials "true" env=AccessControlAllowOrigin
+</IfModule>
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
+
+  # Passa o cabeçalho Authorization para o PHP (JWT Auth)
+  RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+  # Preflight CORS para requisições da SPA SPED Fácil
+  RewriteCond %{REQUEST_METHOD} OPTIONS
+  RewriteRule ^(.*)$ $1 [R=200,L]
+
+  # Rotas que pertencem ao WordPress / APIs / WooCommerce
+  RewriteRule ^(wp-json|graphql|loja|produto|categoria-produto|carrinho|finalizar-compra|checkout|minha-conta|blog)(/|$) /index.php [L]
+
+  # Arquivos de entrada padrão
   RewriteRule ^index\.html$ - [L]
+  RewriteRule ^index\.php$ - [L]
+
+  # Se não for arquivo físico ou diretório físico, entrega o React SPA
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule . /index.html [L]
 </IfModule>
+
+# php -- BEGIN cPanel-generated handler, do not edit
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php82___lsphp .php .php8 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit
