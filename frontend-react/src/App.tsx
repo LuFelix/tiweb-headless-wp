@@ -2,6 +2,7 @@ import React from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { BentoGrid } from './components/BentoGrid';
+import { LisaShowcaseSection } from './components/lisa/LisaShowcaseSection';
 import { LegalVerticalSection } from './components/legal/LegalVerticalSection';
 import { CasesShowcase } from './components/cases/CasesShowcase';
 import { RoiCalculator } from './components/RoiCalculator';
@@ -15,6 +16,7 @@ export const App: React.FC = () => {
       <main className="flex-grow">
         <Hero />
         <BentoGrid />
+        <LisaShowcaseSection />
         <LegalVerticalSection />
         <CasesShowcase />
         <RoiCalculator />

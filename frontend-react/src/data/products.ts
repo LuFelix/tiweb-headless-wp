@@ -1,3 +1,5 @@
+import { getLisaWhatsAppUrl } from './contact';
+
 export interface EcosystemProduct {
   id: string;
   name: string;
@@ -79,10 +81,13 @@ export const ECOSYSTEM_PRODUCTS: EcosystemProduct[] = [
     metrics: '9x mais posts publicados com 0 horas gastas em design',
     techStack: ['n8n', 'Telegram Bot API', 'Meta Graph API', 'Gemini 1.5 Pro'],
     status: 'EM ESCALA',
-    actionLabel: 'Ver Automação',
-    actionUrl: '#contato',
+    actionLabel: 'Conhecer Features da Lisa',
+    actionUrl: '#lisa',
     accentColor: '#50fa7b',
-    glowColor: 'rgba(80, 250, 123, 0.15)'
+    glowColor: 'rgba(80, 250, 123, 0.15)',
+    secondaryActionLabel: 'Testar Lisa ao Vivo',
+    secondaryActionUrl: getLisaWhatsAppUrl('Olá Lisa! Quero testar suas funcionalidades ao vivo.'),
+    secondaryIsExternal: true
   },
   {
     id: 'spedfacil',
