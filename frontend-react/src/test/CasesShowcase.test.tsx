@@ -21,6 +21,16 @@ describe('CasesShowcase Component', () => {
     expect(link).toHaveAttribute('target', '_blank');
   });
 
+  it('renders Advocacia / SmartLegal with dual buttons for presentation and live tour', () => {
+    render(<CasesShowcase />);
+    const slidesLink = screen.getByRole('link', { name: /Abrir Apresentação/i });
+    expect(slidesLink).toHaveAttribute('href', '#advocacia');
+
+    const liveTourLink = screen.getByRole('link', { name: /Tour ao Vivo \(SmartLegal\)/i });
+    expect(liveTourLink).toHaveAttribute('href', 'https://smartlegal.tiweb.app.br');
+    expect(liveTourLink).toHaveAttribute('target', '_blank');
+  });
+
   it('filters cases when segment is clicked', () => {
     render(<CasesShowcase />);
     const saudeBtn = screen.getByRole('button', { name: 'Saúde' });

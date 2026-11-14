@@ -8,6 +8,10 @@ describe('LegalVerticalSection Component', () => {
     render(<LegalVerticalSection />);
     expect(screen.getByText(/Inteligência Artificial & Atendimento para a/i)).toBeInTheDocument();
     expect(screen.getByText(/Vertical Especializada \/\/ Advocacia 4.0/i)).toBeInTheDocument();
+
+    const liveTourLink = screen.getByRole('link', { name: /Tour ao Vivo — SmartLegal/i });
+    expect(liveTourLink).toHaveAttribute('href', 'https://smartlegal.tiweb.app.br');
+    expect(liveTourLink).toHaveAttribute('target', '_blank');
   });
 
   it('renders the 3 strategic legal pillars', () => {
