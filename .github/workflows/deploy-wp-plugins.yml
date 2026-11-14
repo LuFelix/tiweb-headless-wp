@@ -1,0 +1,45 @@
+name: 🚀 Deploy Plugins WP TIWEB (HostGator via FTP)
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'wp-tiweb/wp-content/plugins/tiweb-*/**'
+      - '.github/workflows/deploy-wp-plugins.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: production-ftp-deploy-wp-plugins
+  cancel-in-progress: false
+
+jobs:
+  deploy-plugins:
+    name: 🔌 Sync Custom Plugins (HostGator)
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 10
+
+    steps:
+      - name: 📥 Checkout do Repositório
+        uses: actions/checkout@v4
+
+      - name: 🚀 Sincronizar tiweb-google-auth via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./wp-tiweb/wp-content/plugins/tiweb-google-auth/
+          server-dir: ./wp-content/plugins/tiweb-google-auth/
+          dangerous-clean-slate: false
+
+      - name: 🚀 Sincronizar tiweb-content-manager via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./wp-tiweb/wp-content/plugins/tiweb-content-manager/
+          server-dir: ./wp-content/plugins/tiweb-content-manager/
+          dangerous-clean-slate: false
