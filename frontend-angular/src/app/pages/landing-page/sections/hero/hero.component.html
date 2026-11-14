@@ -1,87 +1,19 @@
-<section class="relative min-h-[90vh] flex flex-col justify-center items-center bg-dracula-background px-4 py-16 overflow-hidden">
-  <!-- Glowing Background Orbs -->
-  <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-dracula-purple/15 blur-[120px] rounded-full pointer-events-none"></div>
-  <div class="absolute bottom-1/3 right-1/4 w-[400px] h-[250px] bg-dracula-cyan/10 blur-[100px] rounded-full pointer-events-none"></div>
-
-  <div class="relative z-10 max-w-5xl mx-auto text-center">
-    <!-- Top Pill Badge -->
-    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-dracula-current/60 border border-dracula-purple/30 text-dracula-foreground text-xs md:text-sm font-mono tracking-wide mb-8 shadow-sm">
-      <span class="inline-block w-2 h-2 rounded-full bg-dracula-green animate-pulse"></span>
-      <span>ENGENHARIA DE SOFTWARE DE ELITE // IA, SAAS & B2B</span>
-    </div>
-
-    <!-- Main Headline -->
-    <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold text-dracula-foreground tracking-tight leading-[1.1] mb-6">
-      Construímos Motores de IA e Plataformas SaaS Que 
-      <span class="bg-gradient-to-r from-dracula-purple via-dracula-pink to-dracula-cyan bg-clip-text text-transparent">
-        Escalam Sem Quebrar
-      </span>.
+<section class="min-h-screen flex items-center justify-center bg-dracula-background px-4">
+  <div class="text-center max-w-3xl mx-auto">
+    <h1 class="text-5xl md:text-7xl font-bold text-white mb-6">
+      SPED <span class="text-dracula-purple">Fácil</span>
     </h1>
-
-    <!-- Subtitle -->
-    <p class="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-10">
-      Da automação de atendimento omnichannel à gestão fiscal e agentes inteligentes. Desenvolvemos com rigor de 
-      <strong class="text-dracula-cyan font-semibold">Governança SSOT</strong>, 
-      <strong class="text-dracula-green font-semibold">TDD com 93% de cobertura</strong> e 
-      <strong class="text-dracula-purple font-semibold">deploy contínuo blindado</strong>.
+    
+    <p class="text-xl md:text-2xl text-gray-300 mb-12">
+      Simplifique a entrega do SPED Fiscal. Baixe o gerador de SPED para validação em poucos cliques.
     </p>
 
-    <!-- CTAs -->
-    <div class="flex flex-wrap items-center justify-center gap-4 mb-16">
-      <a 
-        href="#ecosistema"
-        class="bg-gradient-to-r from-dracula-purple to-purple-600 hover:from-purple-600 hover:to-dracula-purple text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 text-base md:text-lg shadow-lg hover:shadow-dracula-purple/30 hover:-translate-y-0.5 cursor-pointer no-underline inline-flex items-center gap-2">
-        <span>Conhecer Nossos Produtos</span>
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-        </svg>
-      </a>
-
-      <button
-        (click)="scrollToEngineering()"
-        class="bg-dracula-current hover:bg-dracula-current/80 text-dracula-foreground font-semibold py-4 px-8 rounded-xl border border-dracula-current hover:border-dracula-cyan/50 transition-all duration-300 text-base md:text-lg hover:-translate-y-0.5 cursor-pointer inline-flex items-center gap-2">
-        <span>Como Construímos Software</span>
-        <svg class="w-5 h-5 text-dracula-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
-
+    <div class="flex justify-center">
       <button 
-        (click)="toggleLoginForm.emit()"
-        class="text-gray-400 hover:text-dracula-purple text-sm font-medium py-3 px-5 transition-colors cursor-pointer bg-transparent border-none">
-        Área de Membros / Login →
+        routerLink="/register" 
+        class="bg-dracula-purple hover:bg-purple-600 text-white font-bold py-4 px-10 rounded-lg transition-colors text-lg shadow-lg hover:shadow-purple-500/50 cursor-pointer">
+        Criar Conta e Baixar
       </button>
-    </div>
-
-    <!-- Engineering Authority Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-left">
-      <div class="p-5 rounded-xl bg-dracula-current/30 border border-dracula-current/60 hover:border-dracula-purple/50 transition-all duration-300">
-        <div class="text-2xl mb-2">🛡️</div>
-        <div class="text-xs font-mono uppercase text-dracula-purple font-semibold tracking-wider">Governança Canônica</div>
-        <div class="text-sm font-bold text-dracula-foreground mt-1">SSOT & Zero-Spaghetti</div>
-        <div class="text-xs text-gray-400 mt-1 leading-relaxed">Fronteira de arquivos blindada e histórico atômico com rollback cirúrgico.</div>
-      </div>
-
-      <div class="p-5 rounded-xl bg-dracula-current/30 border border-dracula-current/60 hover:border-dracula-green/50 transition-all duration-300">
-        <div class="text-2xl mb-2">🧪</div>
-        <div class="text-xs font-mono uppercase text-dracula-green font-semibold tracking-wider">Rigor Matemático</div>
-        <div class="text-sm font-bold text-dracula-foreground mt-1">Cobertura TDD ≥ 93%</div>
-        <div class="text-xs text-gray-400 mt-1 leading-relaxed">Suítes completas de testes antes de qualquer commit ser promovido.</div>
-      </div>
-
-      <div class="p-5 rounded-xl bg-dracula-current/30 border border-dracula-current/60 hover:border-dracula-cyan/50 transition-all duration-300">
-        <div class="text-2xl mb-2">🔒</div>
-        <div class="text-xs font-mono uppercase text-dracula-cyan font-semibold tracking-wider">Segurança Bancária</div>
-        <div class="text-sm font-bold text-dracula-foreground mt-1">Multi-Tenant LGPD</div>
-        <div class="text-xs text-gray-400 mt-1 leading-relaxed">Isolamento estrito de tokens, bots de clientes e bancos de dados em contêineres.</div>
-      </div>
-
-      <div class="p-5 rounded-xl bg-dracula-current/30 border border-dracula-current/60 hover:border-dracula-orange/50 transition-all duration-300">
-        <div class="text-2xl mb-2">⚡</div>
-        <div class="text-xs font-mono uppercase text-dracula-orange font-semibold tracking-wider">Zero-Downtime</div>
-        <div class="text-sm font-bold text-dracula-foreground mt-1">Deploy com Quality Gate</div>
-        <div class="text-xs text-gray-400 mt-1 leading-relaxed">Entrega contínua automatizada com smoke test HTTP pós-deploy em produção.</div>
-      </div>
     </div>
   </div>
 </section>

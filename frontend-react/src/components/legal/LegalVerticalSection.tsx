@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { WhatsAppSimulator } from './WhatsAppSimulator';
 import { LegalPresentationModal } from './LegalPresentationModal';
-import { Scale, Presentation, ShieldCheck, ArrowRight, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Scale, Presentation, ShieldCheck, ArrowRight, Sparkles, CheckCircle2, ExternalLink } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export const LegalVerticalSection: React.FC = () => {
@@ -40,6 +40,15 @@ export const LegalVerticalSection: React.FC = () => {
               <Presentation className="w-4 h-4" />
               Abrir Apresentação (7 Slides)
             </button>
+            <a
+              href="https://smartlegal.tiweb.app.br"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-3.5 rounded-xl text-sm font-bold text-[#8be9fd] bg-[#44475a]/70 hover:bg-[#44475a] border border-[#8be9fd]/40 transition-colors flex items-center gap-2"
+            >
+              <span>Tour ao Vivo — SmartLegal</span>
+              <ExternalLink className="w-4 h-4" />
+            </a>
             <a
               href="#roi"
               className="px-6 py-3.5 rounded-xl text-sm font-semibold text-[#f8f8f2] bg-[#44475a]/70 hover:bg-[#44475a] border border-[#6272a4]/40 transition-colors flex items-center gap-2"

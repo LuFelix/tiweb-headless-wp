@@ -1,3 +1,5 @@
+import { getLisaWhatsAppUrl } from './contact';
+
 export interface EcosystemProduct {
   id: string;
   name: string;
@@ -13,6 +15,9 @@ export interface EcosystemProduct {
   accentColor: string;
   glowColor: string;
   isExternal?: boolean;
+  secondaryActionLabel?: string;
+  secondaryActionUrl?: string;
+  secondaryIsExternal?: boolean;
 }
 
 export const ECOSYSTEM_PRODUCTS: EcosystemProduct[] = [
@@ -31,10 +36,11 @@ export const ECOSYSTEM_PRODUCTS: EcosystemProduct[] = [
     metrics: 'Redução de 74% no tempo de espera de atendimento',
     techStack: ['FastAPI', 'PostgreSQL', 'LangChain', 'WebSocket', 'Redis'],
     status: 'PRODUÇÃO',
-    actionLabel: 'Conhecer Plataforma',
-    actionUrl: '#contato',
+    actionLabel: 'Acessar SmartContact',
+    actionUrl: 'https://smartcontact.tiweb.app.br',
     accentColor: '#8be9fd',
-    glowColor: 'rgba(139, 233, 253, 0.15)'
+    glowColor: 'rgba(139, 233, 253, 0.15)',
+    isExternal: true
   },
   {
     id: 'mas-educa-ia',
@@ -51,11 +57,14 @@ export const ECOSYSTEM_PRODUCTS: EcosystemProduct[] = [
     metrics: '+85% de retenção cognitiva comprovada em laboratórios',
     techStack: ['Angular 18', 'TypeScript', 'SVG Vectors', 'Tailwind', 'Canvas API'],
     status: 'PRODUÇÃO',
-    actionLabel: 'Explorar Simulador',
+    actionLabel: 'Portal & Loja Educa-IA',
     actionUrl: 'https://educa-ia.app.br',
     accentColor: '#bd93f9',
     glowColor: 'rgba(189, 147, 249, 0.15)',
-    isExternal: true
+    isExternal: true,
+    secondaryActionLabel: 'Motor MAS ao Vivo',
+    secondaryActionUrl: 'https://mas.educa-ia.app.br',
+    secondaryIsExternal: true
   },
   {
     id: 'lisa-automacao',
@@ -72,10 +81,13 @@ export const ECOSYSTEM_PRODUCTS: EcosystemProduct[] = [
     metrics: '9x mais posts publicados com 0 horas gastas em design',
     techStack: ['n8n', 'Telegram Bot API', 'Meta Graph API', 'Gemini 1.5 Pro'],
     status: 'EM ESCALA',
-    actionLabel: 'Ver Automação',
-    actionUrl: '#contato',
+    actionLabel: 'Conhecer Features da Lisa',
+    actionUrl: '#lisa',
     accentColor: '#50fa7b',
-    glowColor: 'rgba(80, 250, 123, 0.15)'
+    glowColor: 'rgba(80, 250, 123, 0.15)',
+    secondaryActionLabel: 'Testar Lisa ao Vivo',
+    secondaryActionUrl: getLisaWhatsAppUrl('Olá Lisa! Quero testar suas funcionalidades ao vivo.'),
+    secondaryIsExternal: true
   },
   {
     id: 'spedfacil',

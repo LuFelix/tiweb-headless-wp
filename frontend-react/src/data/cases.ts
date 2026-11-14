@@ -12,6 +12,8 @@ export interface ShowcaseCase {
   techStack: string[];
   actionLabel: string;
   liveUrl?: string;
+  secondaryActionLabel?: string;
+  secondaryLiveUrl?: string;
   hasPresentationMode?: boolean;
   accentColor: string;
 }
@@ -55,7 +57,9 @@ export const SHOWCASE_CASES: ShowcaseCase[] = [
       'Recuperação imediata de clientes com alvarás pendentes'
     ],
     techStack: ['FastAPI', 'Meta Graph API', 'LangChain', 'PostgreSQL', 'Tailwind'],
-    actionLabel: 'Explorar Vertical & Slides',
+    actionLabel: 'Abrir Apresentação',
+    secondaryActionLabel: 'Tour ao Vivo (SmartLegal)',
+    secondaryLiveUrl: 'https://smartlegal.tiweb.app.br',
     hasPresentationMode: true,
     accentColor: '#bd93f9'
   },
