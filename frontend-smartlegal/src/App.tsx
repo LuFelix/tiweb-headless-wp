@@ -10,15 +10,34 @@ import {
   Clock,
   Sparkles,
   ChevronRight,
-  ArrowRight
+  ArrowRight,
+  Lock,
+  UserCheck
 } from 'lucide-react';
 import { LEGAL_PRACTICE_AREAS } from './data/legalAreas';
+import { AuthService } from './services/authService';
+import { MemberLogin } from './components/members/MemberLogin';
+import { MemberDashboard } from './components/members/MemberDashboard';
 
 export const App: React.FC = () => {
   const [selectedArea, setSelectedArea] = useState<string>(LEGAL_PRACTICE_AREAS[0].id);
+  const [isAuth, setIsAuth] = useState<boolean>(AuthService.isAuthenticated());
+  const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
+  const [showMemberDashboard, setShowMemberDashboard] = useState<boolean>(false);
 
   const activeArea = LEGAL_PRACTICE_AREAS.find((a) => a.id === selectedArea) || LEGAL_PRACTICE_AREAS[0];
   const lisaWhatsAppUrl = 'https://wa.me/5582991821555?text=' + encodeURIComponent('Olá Lisa! Gostaria de agendar uma demonstração do SmartLegal.');
+
+  if (showMemberDashboard && isAuth) {
+    return (
+      <MemberDashboard
+        onLogout={() => {
+          setIsAuth(false);
+          setShowMemberDashboard(false);
+        }}
+      />
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#1e1f29] text-[#f8f8f2] flex flex-col font-sans selection:bg-[#bd93f9] selection:text-[#282a36]">
@@ -51,11 +70,29 @@ export const App: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-4">
+            {isAuth ? (
+              <button
+                onClick={() => setShowMemberDashboard(true)}
+                className="px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold text-emerald-300 bg-emerald-500/10 border border-emerald-500/30 hover:bg-emerald-500/20 transition flex items-center gap-1.5 cursor-pointer"
+              >
+                <UserCheck className="w-4 h-4 text-emerald-400" />
+                <span>Área de Membros (Ativo)</span>
+              </button>
+            ) : (
+              <button
+                onClick={() => setShowLoginModal(true)}
+                className="px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold text-amber-300 bg-amber-500/10 border border-amber-500/30 hover:bg-amber-500/20 transition flex items-center gap-1.5 cursor-pointer"
+              >
+                <Lock className="w-3.5 h-3.5 text-amber-400" />
+                <span>Área do Advogado (Mimos Free)</span>
+              </button>
+            )}
+
             <a
               href="https://tiweb.app.br#advocacia"
               className="text-xs sm:text-sm text-[#f8f8f2]/70 hover:text-[#f8f8f2] hidden sm:flex items-center gap-1"
             >
-              <span>Voltar ao Portal TIWEB</span>
+              <span>Portal TIWEB</span>
               <ExternalLink className="w-3.5 h-3.5" />
             </a>
 
@@ -252,6 +289,18 @@ export const App: React.FC = () => {
           </p>
         </div>
       </footer>
+
+      {/* Modal de Login de Membros */}
+      {showLoginModal && (
+        <MemberLogin
+          onSuccess={() => {
+            setIsAuth(true);
+            setShowLoginModal(false);
+            setShowMemberDashboard(true);
+          }}
+          onCancel={() => setShowLoginModal(false)}
+        />
+      )}
     </div>
   );
 };
