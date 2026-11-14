@@ -33,6 +33,8 @@ frontend-angular/.angular/cache
 frontend-angular/coverage
 frontend-react/dist/
 frontend-react/node_modules/
+frontend-smartlegal/dist/
+frontend-smartlegal/node_modules/
 *:Zone.Identifier
 npm-debug.log
 yarn-error.log
