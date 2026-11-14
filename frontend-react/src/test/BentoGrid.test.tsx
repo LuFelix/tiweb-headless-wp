@@ -32,4 +32,14 @@ describe('BentoGrid Component', () => {
     expect(spedLink).toHaveAttribute('href', 'https://spedfacil.tiweb.app.br');
     expect(spedLink).toHaveAttribute('target', '_blank');
   });
+
+  it('renders Lisa with dual buttons for features showcase and live WhatsApp', () => {
+    render(<BentoGrid />);
+    const featuresLink = screen.getByRole('link', { name: /Conhecer Features da Lisa/i });
+    expect(featuresLink).toHaveAttribute('href', '#lisa');
+
+    const liveLink = screen.getByRole('link', { name: /Testar Lisa ao Vivo/i });
+    expect(liveLink.getAttribute('href')).toContain('https://wa.me/5582991821555');
+    expect(liveLink).toHaveAttribute('target', '_blank');
+  });
 });
