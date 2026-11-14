@@ -7,8 +7,8 @@ const targetPathDevelopment = path.resolve(__dirname, '../src/environments/envir
 
 // Valores padrão caso não existam no .env
 const googleClientId = process.env.GOOGLE_CLIENT_ID || '1018169699705-vgvkpisbmjgrvudab5mrdnsvgid7bjk7.apps.googleusercontent.com';
-const apiUrl = process.env.API_URL || 'https://wp.tiweb.app.br/wp-json';
-const graphqlUrl = process.env.GRAPHQL_URL || (apiUrl.endsWith('/wp-json') ? apiUrl.replace('/wp-json', '/graphql') : 'https://wp.tiweb.app.br/graphql');
+const apiUrl = process.env.API_URL || 'https://tiweb.app.br/wp-json';
+const graphqlUrl = process.env.GRAPHQL_URL || (apiUrl.endsWith('/wp-json') ? apiUrl.replace('/wp-json', '/graphql') : 'https://tiweb.app.br/graphql');
 
 const envConfigFileProduction = `export const environment = {
   production: true,
