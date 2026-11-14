@@ -1,6 +1,12 @@
 name: 🚀 Deploy SPED Fácil (HostGator via FTP)
 
 on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'frontend-angular/**'
+      - '.github/workflows/deploy-spedfacil.yml'
   workflow_dispatch:
 
 concurrency:
